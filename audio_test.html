@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>WaveSurfer Test</title>
+</head>
+
+<body>
+
+    <div id="waveform"></div>
+
+
+</body>
+
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
+
+<script>
+
+var wavesurfer = WaveSurfer.create({
+
+    container: "#waveform",
+    waveColor: 'violet',
+    progressColor: 'purple'
+
+})
+
+wavesurfer.load("wav_file/Aorticinsufficiency.wav");
+
+wavesurfer.on('ready', function () {
+    wavesurfer.play();
+});
+
+
+</script>
+
+</html>

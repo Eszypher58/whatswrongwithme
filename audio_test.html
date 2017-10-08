@@ -25,11 +25,13 @@
 
 </body>
 
+
+<!-- the follow javascript files are required -->
 <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
 
-    <!-- for Edge/FF/Chrome/Opera/etc. getUserMedia support -->
-    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <script src="https://cdn.webrtc-experiment.com/DetectRTC.js"> </script>
+<!-- for Edge/FF/Chrome/Opera/etc. getUserMedia support -->
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="https://cdn.webrtc-experiment.com/DetectRTC.js"> </script>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
 
@@ -95,19 +97,38 @@ $("#stop").on("click", function(e){
     console.log("clicked stop");
     recorder.stop(function(blob){
 
-        //stream.stop();
-        //var blob = ;
+
         console.log(recorder);
 
         var now = Date.now();
+        var fileName = now + ".wav";
 
         if(!recorder) return alert('No recording found.');
 
-        var file = new File([blob], now + ".wav", {
+        var file = new File([blob], fileName, {
             type: "audio/wav"
         });
 
-        invokeSaveAsDialog(file, file.name);
+        //invokeSaveAsDialog(file, file.name);
+
+        //var fd = new FormData();
+        //fd.append('fname', fileName);
+        //fd.append("data", file);
+        
+        $.ajax({
+
+            type: 'POST',
+            url: '/',
+            data: blob,
+            processData: false,
+            contentType: false
+
+        }).done(function(data){
+
+            console.log(data);
+
+        })
+
 
     })
 

@@ -20,6 +20,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.1",
+    "express-handlebars": "^3.0.0",
     "path": "^0.12.7",
     "recordrtc-nodejs": "^1.0.6",
     "wavesurfer": "^1.3.4"

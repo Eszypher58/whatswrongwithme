@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Audio Chain Test</title>
+
+	    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    
+
+	</head>
+	<body>
+		{{{ body }}}
+	</body>
+
+
+    <!-- the follow javascript files are required -->
+    <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+
+    <!-- for Edge/FF/Chrome/Opera/etc. getUserMedia support -->
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="https://cdn.webrtc-experiment.com/DetectRTC.js"> </script>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
+
+
+    <script>
+
+        //create wavesurfer to display a wave file onto the front end html
+        //this simple front end assume server returns an array with file name inside
+        //frontend makes a ajax request to server and display the wave form of the last file in returned data
+
+        var wavesurfer;
+
+        //when page load, display the latest wav file.
+        $.ajax({
+
+            method:"GET",
+            url:"/data.json"
+
+        }).done(function(data){
+
+            console.log(data);
+
+            var lastIndex = data.length - 1;
+
+            wavesurfer = WaveSurfer.create({
+
+                container: "#waveform",
+                waveColor: 'violet',
+                progressColor: 'purple'
+
+            })
+
+            wavesurfer.load(data[lastIndex]);
+
+
+            
+
+        })
+
+//attach event listener to all the playbutton, when clicked, go to server and get the wave file, load onto frontend page and start playing
+        $(document).on("click", '.playbutton' ,function (e){
+
+            var resource = $(this).attr("data_value");
+            console.log(resource);
+
+
+            $.ajax({
+
+                method:"GET",
+                url:"/data.json"
+
+            }).done(function(data){
+
+                var j = data.indexOf(resource);
+
+                wavesurfer.destroy();
+
+                wavesurfer = WaveSurfer.create({
+
+                    container: "#waveform",
+                    waveColor: 'violet',
+                    progressColor: 'purple'
+
+                });
+
+                wavesurfer.load(data[j]);
+
+                wavesurfer.on('ready', function () {
+                        wavesurfer.play();
+                });
+
+            })
+
+                   // wavesurfer.destroy();
+
+
+
+                })
+
+
+
+
+
+    </script>
+
+
+
+    <script>
+
+    //records audio from the microphone, user needs to accept the use of microphone.
+    //there is NO check for if user denied microphone permission as of now
+
+    var recorder;
+
+
+
+    //when clicked on start, start recording
+    $("#start").on("click", function(e){
+
+        console.log("clicked start");
+
+        navigator.mediaDevices.getUserMedia({audio: true, video:false,}).then(function(stream) {
+                        //successCallback(stream);
+
+                        //setVideoURL(stream, true);
+
+            recorder = new StereoAudioRecorder(stream, {
+                sampleRate: 44100,
+                bufferSize: 4096,
+                numberOfAudioChannels: 1
+            });
+
+            recorder.record();
+            console.log("start recording");
+
+        }).catch(function(error) {
+            
+            if(error && error.name === 'ConstraintNotSatisfiedError') {
+                console.log("something bad happened");
+            }
+
+            errorCallback(error);
+            });
+
+
+
+    })
+
+    //when user clicked on stop, stop recording and post data via ajax to server
+    $("#stop").on("click", function(e){
+
+        console.log("clicked stop");
+        recorder.stop(function(blob){
+
+
+            console.log(recorder);
+
+            var now = Date.now();
+            var fileName = now + ".wav";
+
+            if(!recorder) return alert('No recording found.');
+
+            var file = new File([blob], fileName, {
+                type: "audio/wav"
+            });
+
+            //invokeSaveAsDialog(file, file.name);
+
+            //var fd = new FormData();
+            //fd.append('fname', fileName);
+            //fd.append("data", file);
+            
+            $.ajax({
+
+                type: 'POST',
+                url: '/',
+                data: blob,
+                processData: false,
+                contentType: false
+
+            }).done(function(data){
+
+                console.log("successfully saved wav file");
+
+            })
+
+
+        })
+
+    })
+
+
+</script>
+
+</html>

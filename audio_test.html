@@ -12,7 +12,7 @@
 
 <body>
 
-    <div id="waveform"></div>
+    <div id="waveformGraphs"></div>
 
     <div>
 
@@ -37,6 +37,8 @@
 
 <script>
 
+    var graphs = $("#waveformGraphs");
+
 var wavesurfer = WaveSurfer.create({
 
     container: "#waveform",
@@ -45,7 +47,7 @@ var wavesurfer = WaveSurfer.create({
 
 })
 
-wavesurfer.load("wav_file/Aorticinsufficiency.wav");
+wavesurfer.load("1507481993009.wav");
 
 wavesurfer.on('ready', function () {
     wavesurfer.play();
@@ -105,10 +107,11 @@ $("#stop").on("click", function(e){
 
         if(!recorder) return alert('No recording found.');
 
+        /*
         var file = new File([blob], fileName, {
             type: "audio/wav"
         });
-
+        */
         //invokeSaveAsDialog(file, file.name);
 
         //var fd = new FormData();

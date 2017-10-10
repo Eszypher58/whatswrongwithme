@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Media = sequelize.define('Media', {
+  var Media_Test = sequelize.define('Media_Test', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -10,14 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     filename: DataTypes.STRING,
     location: DataTypes.STRING
 });
-
-  Media.associate = function(models){
-    Media.belongsTo(models.Patient, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-  };
   
-  return Media;
+  return Media_Test;
 };

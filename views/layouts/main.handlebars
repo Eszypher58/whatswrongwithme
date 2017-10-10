@@ -38,9 +38,10 @@
 
         }).done(function(data){
 
-            console.log(data);
+            //console.log(data);
 
-            var lastIndex = data.length - 1;
+            //var lastIndex = data.length - 1;
+            var firstIndex = 0;
 
             wavesurfer = WaveSurfer.create({
 
@@ -50,19 +51,15 @@
 
             })
 
-            wavesurfer.load(data[lastIndex]);
-
-
-            
+            wavesurfer.load("username/wav/" + data[firstIndex].filename);
 
         })
 
-//attach event listener to all the playbutton, when clicked, go to server and get the wave file, load onto frontend page and start playing
+        //attach event listener to all the playbutton, when clicked, go to server and get the wave file, load onto frontend page and start playing
         $(document).on("click", '.playbutton' ,function (e){
 
-            var resource = $(this).attr("data_value");
-            console.log(resource);
-
+            var fileToPlay = $(this).attr("data_value");
+            //console.log(fileToPlay);
 
             $.ajax({
 
@@ -71,39 +68,48 @@
 
             }).done(function(data){
 
-                var j = data.indexOf(resource);
+                //console.log(data);
 
-                wavesurfer.destroy();
+                for (var i = 0; i < data.length; i++) {
 
-                wavesurfer = WaveSurfer.create({
+                    var fileInJson = data[i].filename;
 
-                    container: "#waveform",
-                    waveColor: 'violet',
-                    progressColor: 'purple'
+                    //console.log(fileInJson);
+                    
+                    if (fileToPlay === fileInJson) {
 
-                });
+                        wavesurfer.destroy();
 
-                wavesurfer.load(data[j]);
+                        wavesurfer = WaveSurfer.create({
 
-                wavesurfer.on('ready', function () {
-                        wavesurfer.play();
-                });
+                            container: "#waveform",
+                            waveColor: 'violet',
+                            progressColor: 'purple'
+
+                        });
+
+                        var fileLocation = data[i].location;
+                        var fileName = data[i].filename;
+
+                        //console.log(fileLocation, fileName);
+
+                        wavesurfer.load("username/wav" + "/" + fileName);
+
+                        wavesurfer.on('ready', function () {
+
+                            wavesurfer.play();
+
+                        });
+
+                    }
+
+                }
 
             })
 
-                   // wavesurfer.destroy();
-
-
-
-                })
-
-
-
-
+        })
 
     </script>
-
-
 
     <script>
 
@@ -111,7 +117,7 @@
     //there is NO check for if user denied microphone permission as of now
 
     var recorder;
-
+    var audioStream;
 
 
     //when clicked on start, start recording
@@ -120,9 +126,8 @@
         console.log("clicked start");
 
         navigator.mediaDevices.getUserMedia({audio: true, video:false,}).then(function(stream) {
-                        //successCallback(stream);
 
-                        //setVideoURL(stream, true);
+            audioStream = stream;
 
             recorder = new StereoAudioRecorder(stream, {
                 sampleRate: 44100,
@@ -149,31 +154,18 @@
     //when user clicked on stop, stop recording and post data via ajax to server
     $("#stop").on("click", function(e){
 
-        console.log("clicked stop");
+        //console.log("clicked stop");
         recorder.stop(function(blob){
-
-
-            console.log(recorder);
 
             var now = Date.now();
             var fileName = now + ".wav";
 
             if(!recorder) return alert('No recording found.');
-
-            var file = new File([blob], fileName, {
-                type: "audio/wav"
-            });
-
-            //invokeSaveAsDialog(file, file.name);
-
-            //var fd = new FormData();
-            //fd.append('fname', fileName);
-            //fd.append("data", file);
             
             $.ajax({
 
                 type: 'POST',
-                url: '/',
+                url: '/media',
                 data: blob,
                 processData: false,
                 contentType: false
@@ -181,6 +173,8 @@
             }).done(function(data){
 
                 console.log("successfully saved wav file");
+                audioStream.stop();
+                location.reload();
 
             })
 

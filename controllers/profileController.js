@@ -50,7 +50,7 @@ profileRouter.get("/profile/patients/:drId", function(req, res){
 			where:{
 				isActive: true,
 				DoctorId: req.params.drId
-			}
+			},
 			include: [db.User],
 			order: [User, "lastName", "ASC"]
 	}).then(function(data){
@@ -62,8 +62,9 @@ profileRouter.get("/profile/patients/:drId", function(req, res){
 
 //Update a specific user's user data
 profileRouter.put("/profile/user/:id", function(req, res){
+	var user = req.body;
 	db.User.update(
-		{req.body}, 
+		user, 
 		{
 			where: {
 				id: req.params.id
@@ -77,8 +78,9 @@ profileRouter.put("/profile/user/:id", function(req, res){
 
 //Update a specific doctor's doctor data
 profileRouter.put("/profile/dr/:id", function(req, res){
+	var doctor = req.body;
 	db.Doctor.update(
-	  {req.body},
+	  doctor,
 	  {
 	  	where: {
 	  		id: req.params.id
@@ -92,8 +94,9 @@ profileRouter.put("/profile/dr/:id", function(req, res){
 
 //Update a specific patient's patient data
 profileRouter.put("/profile/patient/:id", function(req, res){
+	var patient = req.body;
 	db.Patient.update(
-	  {req.body}, 
+	  patient, 
 	  {
 	  	where: {
 	  		id: req.params.id
@@ -107,9 +110,9 @@ profileRouter.put("/profile/patient/:id", function(req, res){
 
 //Create a specific user
 profileRouter.post("/user", function(req, res){
-	db.User.create(
-	  {req.body}
-	).then(function(data){
+	var user = req.body;
+	console.log(user);
+	db.User.create(user).then(function(data){
 		res.json(data);
 	}).catch(function(err){
 		throw err;
@@ -118,7 +121,8 @@ profileRouter.post("/user", function(req, res){
 
 //Create a specific Doctor - must have User ID in req.body
 profileRouter.post("/doctor", function(req, res){
-	db.Doctor.create({req.body}).then(function(data){
+	var doctor = req.body;
+	db.Doctor.create(doctor).then(function(data){
 		res.json(data);
 	}).catch(function(err){
 		throw err;
@@ -127,7 +131,8 @@ profileRouter.post("/doctor", function(req, res){
 
 //Create a specific Patient - must have User ID in req.body
 profileRouter.post("/patient", function(req, res){
-	db.Patient.create({req.body}).then(function(data){
+	var patient = req.body;
+	db.Patient.create(patient).then(function(data){
 		res.json(data);
 	}).catch(function(err){
 		throw err;
@@ -189,3 +194,5 @@ profileRouter.delete("/:id", function(req, res){
 		throw err;
 	});
 });
+
+module.exports = profileRouter;

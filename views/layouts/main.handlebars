@@ -166,33 +166,30 @@
 
             setTimeout(function(){
 
-            recorder.stop(function(blob){
+                recorder.stop(function(blob){
 
-                var now = Date.now();
-                var fileName = now + ".wav";
+                    var now = Date.now();
+                    var fileName = now + ".wav";
 
-                if(!recorder) return alert('No recording found.');
-            
-                $.ajax({
+                    if(!recorder) return alert('No recording found.');
+                
+                    $.ajax({
 
-                    type: 'POST',
-                    url: '/media',
-                    data: blob,
-                    processData: false,
-                    contentType: false
+                        type: 'POST',
+                        url: '/media',
+                        data: blob,
+                        processData: false,
+                        contentType: false
 
-                }).done(function(data){
+                    }).done(function(data){
 
-                    console.log("successfully saved wav file");
-                    audioStream.stop();
-                    location.reload();
+                        console.log("successfully saved wav file");
+                        audioStream.stop();
+                        location.reload();
+
+                    })
 
                 })
-
-
-        })
-
-
 
             }, recordDuration);
 

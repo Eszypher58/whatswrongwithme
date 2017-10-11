@@ -21,12 +21,22 @@ db.sequelize.sync({  }).then(function(){
 	app.set("view engine", "handlebars");
 
 	//Send to controller
-    app.use(express.static(__dirname + '/public'));
+	app.use(express.static(__dirname + '/public'));
+
     
     //Stanley's Code
-    var routes = require("./controllers/media_controller.js");
+	var routes = require("./controllers/media_controller.js");
+	app.use(express.static(__dirname + '/UI'));
     app.use("/", routes);
-    app.use(express.static("media"));
+	app.use(express.static("media"));
+
+	app.get("/", function(req, res){
+
+		res.sendFile(path.join(__dirname + "/UI/login.html"));
+
+	})
+
+
     //end of Stanley's code
 
 	//Initialize server

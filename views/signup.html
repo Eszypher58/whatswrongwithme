@@ -103,12 +103,12 @@ body {
                                    <label>Are you a doctor or a patient?</label>
                                     <div class="form-check form-check-inline">
                                         <label>
-                                            <input id="radio1" name="radio" type="radio" class="custom-control-input" value="1">
-                                            <span class="boolean">Doctor</span>
+                                            <input id="radio1" name="radio" type="radio" class="custom-control-input" value="0" checked>
+                                            <span class="boolean">Patient</span>
                                         </label>
                                         <label>
-                                            <input id="radio2" name="radio" type="radio" class="custom-control-input" value="0">
-                                            <span class="boolean">Patient</span>
+                                            <input id="radio2" name="radio" type="radio" class="custom-control-input" value="1">
+                                            <span class="boolean">Doctor</span>
                                         </label>
                                     </div>
                             </div>
@@ -129,15 +129,16 @@ body {
                                 Go Back</div>
                             </a>
                         </div>
-                        <div style="visibility:hidden" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-
                     </div><!-- Card Closed -->
                 </form>
             </div>                    
         </div>
     </div>
 </div>
-
+<div style="visibility:hidden" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+<div class="sign-out content">
+    <a onclick="signOut();" class="btn-block text-center btn-login-ghost" href="signup.html"><img class="google-icon" src="assets/img/google.png">Sign Out</a>
+</div>
 </body>
 
     <!--   Core JS Files   -->
@@ -164,45 +165,6 @@ body {
 
     <script src="assets/js/googleauth.js"></script>
 
-	<script>
-        function onSignIn(googleUser) {
-            var googleprofile = googleUser.getBasicProfile();
-            var myUserEntity = {};
-            myUserEntity.Id = googleprofile.getId();
-            myUserEntity.Name = googleprofile.getName();
-            sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
-            $("#first-name").val(googleprofile.getGivenName());
-            $("#last-name").val(googleprofile.getFamilyName());
-            $("#email").val(googleprofile.getEmail());
-
-
-            $(document).on("click", "#user-submit", function() {
-                console.log("hello")
-                var docPatient = $("input[name='radio']:checked").val();
-                var user = {
-                    firstName: $("#first-name").val(),
-                    lastName: $("#last-name").val(),
-                    dob: $("#dob").val(),
-                    city: $("#city").val(),
-                    state: $("#state").val(),
-                    imgUrl: googleprofile.getImageUrl(),
-                    googleId: googleprofile.getId(),
-                    token: googleUser.getAuthResponse().id_token,
-                    email: googleprofile.getEmail(),
-                    docPatient: docPatient
-
-                }
-                console.log(user);
-                $.post("/user", user)
-                .then(function() {
-                    if (docPatient === "1") {
-                        window.location.href = "/signup-doctor";
-                    } else {
-                        window.location.href = "/signup-patient";
-                    }
-                });
-            });
-        }
-    </script>
+	<script src="assets/js/signup.js"></script>
 
 </html>

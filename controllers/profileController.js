@@ -27,6 +27,21 @@ profileRouter.get("/profile/:id", function(req, res){
 	});
 });
 
+profileRouter.get("/profile/googleid/:googleid", function(req, res){
+	db.User.findOne(
+		{
+			where: {
+				googleid: req.params.googleid,
+				isActive: true
+			},
+			include: [db.Doctor, db.Patient]
+	}).then(function(data){
+		res.json(data);
+	}).catch(function(err){
+		throw err;
+	});
+});
+
 //Get All Active Doctors
 profileRouter.get("/profile/activeDrs", function(req, res){
 	db.Doctor.findAll(
@@ -42,6 +57,36 @@ profileRouter.get("/profile/activeDrs", function(req, res){
 		throw err;
 	});
 })
+
+profileRouter.get("/patient/user/:userid", function(req, res){
+	db.Doctor.findOne(
+		{
+			where: {
+				UserId: req.params.userid,
+				isActive: true
+			},
+			include: [db.User]
+	}).then(function(data){
+		res.json(data);
+	}).catch(function(err){
+		throw err;
+	});
+});
+
+profileRouter.get("/doctor/user/:userid", function(req, res){
+	db.Doctor.findOne(
+		{
+			where: {
+				UserId: req.params.userid,
+				isActive: true
+			},
+			include: [db.User]
+	}).then(function(data){
+		res.json(data);
+	}).catch(function(err){
+		throw err;
+	});
+});
 
 //Get All Active Patients of a Specific Doctor
 profileRouter.get("/profile/patients/:drId", function(req, res){

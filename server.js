@@ -24,10 +24,13 @@ db.sequelize.sync({  }).then(function(){
     app.use(express.static(__dirname + '/public'));
     
     //Stanley's Code
-    var routes = require("./controllers/media_controller.js");
-    app.use("/", routes);
+    var mediaRoutes = require("./controllers/media_controller.js");
+  	var profileRoutes = require("./controllers/profileController.js");
+    app.use("/", mediaRoutes);
+    app.use("/", profileRoutes);
     app.use(express.static("media"));
     //end of Stanley's code
+
 
 	//Initialize server
 	app.listen(PORT, function() {

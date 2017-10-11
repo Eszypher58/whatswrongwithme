@@ -10,33 +10,35 @@ var fs = require("fs");
 var db = require("./models");
 db.sequelize.sync({  }).then(function(){
 
-	//Set up Express
-	var app = express();
-	var PORT = process.env.PORT || 8080;
+  //Set up Express
+  var app = express();
+  var PORT = process.env.PORT || 8080;
 
-	//Set up method-override, body-parser, and handlebars
-	app.use(methodOverride("_method"));
-	app.use(bodyParser.urlencoded({ extended: true }));
-	app.engine("handlebars", handlebars({ defaultLayout: "main" }));
-	app.set("view engine", "handlebars");
+  //Set up method-override, body-parser, and handlebars
+  app.use(methodOverride("_method"));
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.engine("handlebars", handlebars({ defaultLayout: "main" }));
+  app.set("view engine", "handlebars");
 
-	//Send to controller
-    app.use(express.static(__dirname + '/public'));
-    
-    //Stanley's Code
-    var mediaRoutes = require("./controllers/media_controller.js");
-  	var profileRoutes = require("./controllers/profileController.js");
-    app.use("/", mediaRoutes);
-    app.use("/", profileRoutes);
-    app.use(express.static("media"));
-    //end of Stanley's code
+  //Send to controller
+  app.use(express.static(__dirname + '/views'));
 
+  //Stanley's Code
+  var mediaRoutes = require("./controllers/media_controller.js");
+  var profileRoutes = require("./controllers/profileController.js");
+  app.use("/", mediaRoutes);
+  app.use("/", profileRoutes);
+  app.use(express.static("media"));
+  //end of Stanley's code
 
-	//Initialize server
-	app.listen(PORT, function() {
-  	console.log('Listening on port ' + PORT);
-	});
+  //Routes
+  require("./routes/html-routes.js")(app);
+
+  //Initialize server
+  app.listen(PORT, function() {
+    console.log('Listening on port ' + PORT);
+  });
 }).catch(function(err){
-	return console.log(err);
+  return console.log(err);
 });
 

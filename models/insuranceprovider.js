@@ -11,8 +11,13 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    betterDoctorUid: DataTypes.STRING,
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
-});
+  });
 
   InsuranceProvider.associate = function(models){
     InsuranceProvider.hasMany(models.Doctor, {

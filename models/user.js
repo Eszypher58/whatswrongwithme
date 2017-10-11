@@ -19,13 +19,17 @@ module.exports = (sequelize, DataTypes) => {
         isUrl: true
       }
     },
-    googleId: DataTypes.INTEGER,
+    googleId: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     token: DataTypes.TEXT,
     email: {
       type: DataTypes.STRING,
       validate: {
         isEmail: true
-      }
+      },
+      allowNull: false
     },
     docPatient: {
       type: DataTypes.BOOLEAN,

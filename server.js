@@ -3,10 +3,12 @@ var express = require("express");
 var methodOverride = require("method-override");
 var bodyParser = require("body-parser");
 var handlebars = require("express-handlebars");
+var path = require("path");
+var fs = require("fs");
 
 //Initialize database
 var db = require("./models");
-db.sequelize.sync({ force: true }).then(function(){
+db.sequelize.sync({  }).then(function(){
 
 	//Set up Express
 	var app = express();
@@ -19,7 +21,13 @@ db.sequelize.sync({ force: true }).then(function(){
 	app.set("view engine", "handlebars");
 
 	//Send to controller
-	app.use(express.static(__dirname + '/public'))
+    app.use(express.static(__dirname + '/public'));
+    
+    //Stanley's Code
+    var routes = require("./controllers/media_controller.js");
+    app.use("/", routes);
+    app.use(express.static("media"));
+    //end of Stanley's code
 
 	//Initialize server
 	app.listen(PORT, function() {

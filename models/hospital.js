@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   var Hospital = sequelize.define('Hospital', {
     id: {

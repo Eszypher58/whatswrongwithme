@@ -8,17 +8,16 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       allowNull: false
     },
-    drRating: DataTypes.STRING,
     specialization: DataTypes.STRING,
+    betterDoctorId: DataTypes.STRING,
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
   });
 
   Doctor.associate = function(models){
     Doctor.belongsTo(models.Hospital, {
-      foreignKey: {
-        allowNull: true
-      }
-    });
-    Doctor.belongsTo(models.InsuranceProvider, {
       foreignKey: {
         allowNull: true
       }

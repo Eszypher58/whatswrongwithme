@@ -16,8 +16,12 @@ module.exports = (sequelize, DataTypes) => {
     state: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
-});
+  });
 
   Hospital.associate = function(models){
     Hospital.hasMany(models.Doctor, {

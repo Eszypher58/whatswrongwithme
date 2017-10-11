@@ -10,6 +10,10 @@
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
+    <!-- Google Sign In -->
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="638533152381-8qvq5kf5f7u2ra7aqbe0p5hkjcmj8gfu.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <!-- Bootstrap core CSS     -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -50,13 +54,42 @@ body {
                         </div>
 
                         <div class="content">
-                               
                             <div class="row">
-
+                                <div class="col-md-6">
+                                    <a class="btn-login-ghost btn-login-small" data-toggle="modal" data-target="#select-doctor">Search</a>
+                                </div>
+                                <div id="select-doctor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+                                        <h4 class="modal-title" id="myModalLabel">Select your profile</h4>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="doctor-name">Name</label>
+                                        <input class="form-control" id="doctor-name" type="text">
+                                        <label for="doctor-location">Location</label>
+                                        <input class="form-control" id="doctor-location" type="text">
+                                        <button id = "search-for-doctor" type="button" class="btn btn-primary">Search</button>
+                                      </div>
+                                      <div style = "padding:20px;" id="modal-body">
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button id = "select-the-doctor" type="button" class="btn btn-primary" data-dismiss="modal">Select Doctor</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Specialization</label>
-                                        <input type="text" class="form-control" placeholder="Specialization">
+                                        <select class="form-control" name="specialization">
+                                            <option value="" disabled selected>Please Choose...</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -96,9 +129,11 @@ body {
         </div>
     </div>
 </div>
-
+<div style="visibility:hidden" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+<div class="sign-out content">
+    <a onclick="signOut();" class="btn-block text-center btn-login-ghost" href="signup.html"><img class="google-icon" src="assets/img/google.png">Sign Out</a>
+</div>
 </body>
-
     <!--   Core JS Files   -->
     <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
@@ -121,6 +156,54 @@ body {
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
 
-	
+    <script src="assets/js/googleauth.js"></script>
+    
+    <script>
+        function onSignIn(googleUser) {
+          var googleprofile = googleUser.getBasicProfile();
+          var myUserEntity = {};
+          myUserEntity.Id = googleprofile.getId();
+          myUserEntity.Name = googleprofile.getName();
+          sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+
+          $.get("/profile/googleid/" + googleprofile.getId(), function(data) {
+            console.log(data);
+          })
+
+          $("#search-for-doctor").on("click", function() {
+          var name = $("#doctor-name").val();
+          var location = $("#doctor-location").val();
+          var queryURL = "https://api.betterdoctor.com/2016-03-01/doctors?name=" + name + "&location=" + location + "&gender=female&skip=0&limit=15&user_key=d9aae6ac51be978b847e7ed2a8ee5b21";
+          console.log(queryURL)
+          $.ajax({
+            method:"GET",
+            url:queryURL
+          }).done (function(response) {
+            var list = "";
+            for(var i=0; i<response.data.length; i++) {
+              var firstName = response.data[i].profile.first_name;
+              var lastName = response.data[i].profile.last_name;
+              var bio = response.data[i].profile.bio;
+              var pic = "<img src =' " + response.data[i].profile.image_url + "'/>"
+              var doctor = "<li><a style = 'cursor:pointer' class='doc-name' value='"+ i + "'>" + pic + firstName + " " + lastName + "</a><br>" + bio + "</li>"
+              list += doctor;
+            }
+            $("#modal-body").html("<ol>" + list + "</ol>")
+
+            $(document).on("click", ".doc-name", function() {
+              var i = $(this).attr("value");
+              $(this).css("font-weight", "bold");
+              var firstName = response.data[i].profile.first_name;
+              var lastName = response.data[i].profile.last_name;
+            
+              $("#select-the-doctor").on("click", function () {
+                $("#modal-body").html("");
+                $("#doctor-preference").val(firstName + " " + lastName);
+              });
+            })
+          });
+        })
+        }
+    </script>
 
 </html>

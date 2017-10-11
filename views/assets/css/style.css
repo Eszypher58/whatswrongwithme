@@ -215,6 +215,7 @@ div.card {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1px;
+  cursor: pointer;
 }
 
 .btn-login:hover {
@@ -235,6 +236,11 @@ div.card {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.btn-login-small {
+  padding: 2px 12px;
 }
 
 .btn-login-ghost:visited {
@@ -278,4 +284,14 @@ div.card {
 .abcRioButtonBlue {
   background-color: #7D45FC !important;
   width: 100% !important;
+}
+
+.sign-out {
+  position: fixed;
+  right:10px;
+  top:10px;
+}
+
+.modal-content {
+  padding:20px;
 }

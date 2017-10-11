@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
     isDrComment: {
       type: DataTypes.BOOLEAN,
       allowNull: false
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
 });
 

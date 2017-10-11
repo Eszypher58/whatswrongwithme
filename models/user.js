@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
     docPatient: {
       type: DataTypes.BOOLEAN,
       allowNull: false
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
   });
 

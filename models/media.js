@@ -8,8 +8,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     filename: DataTypes.STRING,
-    location: DataTypes.STRING
-});
+    location: DataTypes.STRING,
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
+  });
 
   Media.associate = function(models){
     Media.belongsTo(models.Patient, {

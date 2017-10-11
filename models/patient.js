@@ -8,7 +8,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     biography: DataTypes.TEXT,
-});
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
+  });
 
   Patient.associate = function(models){
     Patient.belongsTo(models.InsuranceProvider, {

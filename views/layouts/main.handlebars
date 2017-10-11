@@ -21,6 +21,8 @@
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/plugin/wavesurfer.spectrogram.min.js"></script>
+
 
     <script>
 
@@ -52,6 +54,18 @@
             })
 
             wavesurfer.load("username/wav/" + data[firstIndex].filename);
+
+            /*
+            wavesurfer.on('ready', function () {
+                var spectrogram = Object.create(WaveSurfer.Spectrogram);
+                spectrogram.init({
+                    wavesurfer: wavesurfer,
+                    container: "#wave-spectrogram",
+                    fftSamples: 1024,
+                    labels: false
+                });
+            });
+            */
 
         })
 
@@ -99,6 +113,16 @@
 
                             wavesurfer.play();
 
+                            /*
+                            var spectrogram = Object.create(WaveSurfer.Spectrogram);
+                            spectrogram.init({
+                                wavesurfer: wavesurfer,
+                                container: "#wave-spectrogram",
+                                fftSamples: 512,
+                                labels: false
+                            });
+                            */
+
                         });
 
                     }
@@ -129,6 +153,8 @@
 
             audioStream = stream;
 
+            var recordDuration = 5000;
+
             recorder = new StereoAudioRecorder(stream, {
                 sampleRate: 44100,
                 bufferSize: 4096,
@@ -137,6 +163,38 @@
 
             recorder.record();
             console.log("start recording");
+
+            setTimeout(function(){
+
+            recorder.stop(function(blob){
+
+                var now = Date.now();
+                var fileName = now + ".wav";
+
+                if(!recorder) return alert('No recording found.');
+            
+                $.ajax({
+
+                    type: 'POST',
+                    url: '/media',
+                    data: blob,
+                    processData: false,
+                    contentType: false
+
+                }).done(function(data){
+
+                    console.log("successfully saved wav file");
+                    audioStream.stop();
+                    location.reload();
+
+                })
+
+
+        })
+
+
+
+            }, recordDuration);
 
         }).catch(function(error) {
             

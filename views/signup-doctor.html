@@ -52,66 +52,33 @@ body {
                         <div class="header text-center">
                             <p class="login-title">Sign Up</p>
                         </div>
-
                         <div class="content">
+                            <h4 class="title">Search</h4>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <a class="btn-login-ghost btn-login-small" data-toggle="modal" data-target="#select-doctor">Search</a>
-                                </div>
-                                <div id="select-doctor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
-                                        <h4 class="modal-title" id="myModalLabel">Select your profile</h4>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="doctor-name">Name</label>
-                                        <input class="form-control" id="doctor-name" type="text">
-                                        <label for="doctor-location">Location</label>
-                                        <input class="form-control" id="doctor-location" type="text">
-                                        <button id = "search-for-doctor" type="button" class="btn btn-primary">Search</button>
-                                      </div>
-                                      <div style = "padding:20px;" id="modal-body">
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button id = "select-the-doctor" type="button" class="btn btn-primary" data-dismiss="modal">Select Doctor</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                
+                              <div class="col-md-6 form-group">
+                                <label for="doctor-name">Name</label>
+                                <input class="form-control" id="doctor-name" type="text">
+                              </div>
+                              <div class="col-md-6 form-group">
+                                <label>State</label>
+                                <select id = "states" class="form-control" name="state">
+                                    <option value="" disabled selected>Please Choose...</option>
+                                </select>
+                              </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Specialization</label>
-                                        <select class="form-control" name="specialization">
-                                            <option value="" disabled selected>Please Choose...</option>
-                                        </select>
-                                    </div>
+                              <div class="col-md-12">
+                                <button id = "search-for-doctor" type="button" class="btn-login-ghost btn-small">Search</button>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12 form-group">
+                                <div style = "overflow: auto; max-height: 200px; padding:20px;" id="doc-display">
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Hospital</label>
-                                        <input type="text" class="form-control" placeholder="Hospital">
-                                    </div>
-                                </div>
+                              </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Accepted Insurance</label>
-                                        <input type="text" class="form-control" placeholder="Accepted Insurance">
-                                    </div>
-                                </div>
-                            </div>
-
-                            
-                                  
-                            <a class="btn-login text-center pull-right next-btn" href="dashboard-doctor.html">Sign Up</a>
+                            <a id = "create-doctor" class="btn-login text-center pull-right next-btn" href="#">Sign Up</a>
                             <div class="clearfix"></div>      
                              
                         </div> <!-- Content Closed -->
@@ -159,50 +126,90 @@ body {
     <script src="assets/js/googleauth.js"></script>
     
     <script>
+        var profileSelected = false;
+        var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'District of Columbia', 'Delaware', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Virgin Islands', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+        var abb = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'VI', 'WA', 'WV', 'WI', 'WY']
+        for (var i=0; i<states.length; i++) {
+          var state = $("<option>");
+          state.text(abb[i] + ": " + states[i]);
+          state.val(abb[i]);
+          $("#states").append(state);
+        }
+
         function onSignIn(googleUser) {
           var googleprofile = googleUser.getBasicProfile();
           var myUserEntity = {};
           myUserEntity.Id = googleprofile.getId();
           myUserEntity.Name = googleprofile.getName();
           sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
-
           $.get("/profile/googleid/" + googleprofile.getId(), function(data) {
             console.log(data);
-          })
+            if (data) {
+              $.get("/doctor/user/" + data.id, function(docData) {
+                console.log(docData);
+                if(!docData) {
 
-          $("#search-for-doctor").on("click", function() {
-          var name = $("#doctor-name").val();
-          var location = $("#doctor-location").val();
-          var queryURL = "https://api.betterdoctor.com/2016-03-01/doctors?name=" + name + "&location=" + location + "&gender=female&skip=0&limit=15&user_key=d9aae6ac51be978b847e7ed2a8ee5b21";
-          console.log(queryURL)
-          $.ajax({
-            method:"GET",
-            url:queryURL
-          }).done (function(response) {
-            var list = "";
-            for(var i=0; i<response.data.length; i++) {
-              var firstName = response.data[i].profile.first_name;
-              var lastName = response.data[i].profile.last_name;
-              var bio = response.data[i].profile.bio;
-              var pic = "<img src =' " + response.data[i].profile.image_url + "'/>"
-              var doctor = "<li><a style = 'cursor:pointer' class='doc-name' value='"+ i + "'>" + pic + firstName + " " + lastName + "</a><br>" + bio + "</li>"
-              list += doctor;
+                  $("#doctor-name").val(googleprofile.getName());
+                  $(document).on("click", "#search-for-doctor", function() {
+                    var name = $("#doctor-name").val() || "";
+                    var state = $("#states").val() || "";
+                    var queryURL = "https://api.betterdoctor.com/2016-03-01/doctors?name=" + name + "&location=" + state + "&skip=0&limit=10&user_key=d9aae6ac51be978b847e7ed2a8ee5b21";
+                    $.ajax({
+                      method:"GET",
+                      url:queryURL
+                    }).done (function(response) {
+                      $("#doc-display").empty();
+                      for(var i=0; i<response.data.length; i++) {
+                        var doc = $("<div>");
+                        doc.attr("class", "col-md-12 selected-doc")
+                        var firstName = response.data[i].profile.first_name;
+                        var lastName = response.data[i].profile.last_name;
+                        var pic = $("<img>");
+                        pic.attr("src", response.data[i].profile.image_url);
+                        pic.attr("class", "docpic")
+                        doc.attr("value", i)
+                        doc.append(pic);
+                        doc.append(firstName + " " + lastName)
+                        $("#doc-display").append(doc);
+                        profileSelected = false;
+                      }
+                      $(document).on("click", ".selected-doc", function () {
+                        $("#doc-display").empty();
+                        var val = parseInt($(this).attr("value"));
+                        $("#doc-display").append("<p><strong>" + response.data[val].profile.first_name + " " + response.data[val].profile.last_name + "</strong> - " + response.data[val].practices[0].visit_address.city + "</p>");
+                        $("#doc-display").append("<p>" + response.data[val].specialties[0].name + "</p>")
+                        $("#doc-display").append("<p>" + response.data[val].profile.bio + "</p>")
+                        var insurances = $("<ul>");
+                        for (var i=0; i<response.data[val].insurances.length; i++) {
+                          var ins = "<li>" + response.data[val].insurances[i].insurance_plan.name + "</li>"
+                          insurances.append(ins);
+                        }
+                        $("#doc-display").append("Insurances Accepted: ")
+                        $("#doc-display").append(insurances);
+                        profileSelected = true;
+
+                        $("#create-doctor").on("click", function() {
+                          if(profileSelected) {
+                            var doctor = {
+                              specialization: response.data[val].specialties[0].name,
+                              betterdoctorId: response.data[val].uid,
+                              UserId: data.id
+                            }
+                            $.post("/doctor", doctor)
+                            .then(window.location.href = "/dashboard-doctor")
+                          }
+                        })
+                      });
+                    });
+                  })
+                } else {
+                  window.location.href = "/dashboard-doctor"
+                }
+              })
+            } else {
+              window.location.href = "/login"
             }
-            $("#modal-body").html("<ol>" + list + "</ol>")
-
-            $(document).on("click", ".doc-name", function() {
-              var i = $(this).attr("value");
-              $(this).css("font-weight", "bold");
-              var firstName = response.data[i].profile.first_name;
-              var lastName = response.data[i].profile.last_name;
-            
-              $("#select-the-doctor").on("click", function () {
-                $("#modal-body").html("");
-                $("#doctor-preference").val(firstName + " " + lastName);
-              });
-            })
-          });
-        })
+          })
         }
     </script>
 

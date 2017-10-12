@@ -34,7 +34,7 @@ $.ajax({
   });
 });
 
-$.get("/profile/doctors/activeDrs", function(data) {
+$.get("/activeDrs", function(data) {
   for(var i=0; i<data.length; i++) {
     var doc = $("<option>");
     doc.attr("value", data[i].id);

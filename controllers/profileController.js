@@ -43,14 +43,13 @@ profileRouter.get("/profile/googleid/:googleid", function(req, res){
 });
 
 //Get All Active Doctors
-profileRouter.get("/profile/activeDrs", function(req, res){
+profileRouter.get("/profile/doctors/activeDrs", function(req, res){
 	db.Doctor.findAll(
 		{
 			where: {
 				isActive: true
 			},
-			include: [db.User], 
-			order: [User, "lastName", "ASC"]
+			include: [db.User]
 	}).then(function(data){
 		res.json(data);
 	}).catch(function(err){
@@ -59,7 +58,7 @@ profileRouter.get("/profile/activeDrs", function(req, res){
 })
 
 profileRouter.get("/patient/user/:userid", function(req, res){
-	db.Doctor.findOne(
+	db.Patient.findOne(
 		{
 			where: {
 				UserId: req.params.userid,

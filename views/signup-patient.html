@@ -11,6 +11,12 @@
     <meta name="viewport" content="width=device-width" />
 
 
+    <!-- Google Sign In -->
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="638533152381-8qvq5kf5f7u2ra7aqbe0p5hkjcmj8gfu.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
     <!-- Bootstrap core CSS     -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -56,44 +62,53 @@ body {
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Choose a doctor</label>
-                                            <select class="form-control">
-                                                <option selected>Choose...</option>
-                                                <option value="1">Dr. Kenneth Kazenelson, MD</option>
-                                                <option value="2">Dr. Wesley Kim, MD</option>
-                                                <option value="3">Dr. Joan Rosenburg, MD</option>
+                                            <select id="doctors" class="form-control">
+                                                <option value="" disabled selected>Please Choose...</option>
                                             </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = "row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Insurance Provider</label>
+                                        <select id = "ins" type="text" class="form-control">
+                                            <option value="" disabled selected>Please Choose...</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Insurance Provider</label>
-                                        <input type="text" class="form-control" placeholder="Insurance Provider">
+                                        <label>Type of Insurance</label>
+                                        <select id = "ins-type" type="text" class="form-control">
+                                            <option value="" disabled selected>Select Insurance Provider...</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>About Me</label>
-                                                <textarea rows="5" class="form-control" placeholder="We would love to get to know you.."></textarea>
-                                            </div>
-                                        </div>
+                                    <div class="form-group">
+                                        <label>About Me</label>
+                                        <textarea rows="5" id="bio" class="form-control" placeholder="We would love to get to know you.."></textarea>
+                                    </div>
+                                </div>
                             </div>
 
                             
                                   
-                            <a class="btn-login text-center pull-right next-btn" href="dashboard-patient.html">Sign Up</a>
+                            <a id="create-patient" class="btn-login text-center pull-right next-btn" href="#">Sign Up</a>
                             <div class="clearfix"></div>      
                              
                         </div> <!-- Content Closed -->
-                        <hr>
+                        <!-- <hr>
                         <div class="footer">
-                             <a href="signup.html">
+                             <a href="signup">
                                 <div class="go-back-btn"><i class="fa fa-caret-left" aria-hidden="true"></i>
                                 Go Back</div>
                             </a>
-                        </div>
+                        </div> -->
 
                     </div><!-- Card Closed -->
                 </form>
@@ -101,7 +116,10 @@ body {
         </div>
     </div>
 </div>
-
+<div style="visibility:hidden" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+<div class="sign-out content">
+    <a onclick="signOut();" class="btn-block text-center btn-login-ghost" href="signup.html"><img class="google-icon" src="assets/img/google.png">Sign Out</a>
+</div>
 </body>
 
     <!--   Core JS Files   -->
@@ -126,6 +144,8 @@ body {
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
 
-	
+    <script src="assets/js/googleauth.js"></script>
+
+    <script src="assets/js/signup-patient.js"></script>
 
 </html>

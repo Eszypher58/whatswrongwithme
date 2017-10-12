@@ -216,6 +216,7 @@ div.card {
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;
+  border:0;
 }
 
 .btn-login:hover {
@@ -239,7 +240,7 @@ div.card {
   cursor: pointer;
 }
 
-.btn-login-small {
+.btn-small {
   padding: 2px 12px;
 }
 
@@ -292,6 +293,15 @@ div.card {
   top:10px;
 }
 
-.modal-content {
-  padding:20px;
+.selected-doc {
+  cursor: pointer;
+  margin:10px;
+}
+
+.selected-doc:hover {
+  background-color: #00F1B7;
+}
+
+.docpic {
+  width:50px;
 }

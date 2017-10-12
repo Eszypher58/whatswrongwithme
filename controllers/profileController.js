@@ -73,6 +73,7 @@ profileRouter.get("/patient/user/:userid", function(req, res){
 	});
 });
 
+//Get Doctor based on userId
 profileRouter.get("/doctor/user/:userid", function(req, res){
 	db.Doctor.findOne(
 		{

@@ -120,7 +120,7 @@ h1 .subtitle {
 /*     General overwrite     */
 body,
 .wrapper {
-  min-height: 100vh;
+  min-height: 95vh;
   position: relative; }
 
 a {
@@ -181,7 +181,7 @@ input:focus {
 .wrapper {
   position: relative;
   top: 0;
-  height: 100vh; }
+  height: 95vh; }
 
 .sidebar,
 body > .navbar-collapse {
@@ -199,7 +199,7 @@ body > .navbar-collapse {
   .sidebar .sidebar-wrapper,
   body > .navbar-collapse .sidebar-wrapper {
     position: relative;
-    max-height: calc(100vh - 75px);
+    max-height: calc(95vh - 75px);
     min-height: 100%;
     overflow: auto;
     width: 260px;
@@ -2440,7 +2440,7 @@ body > .navbar-collapse {
       position: relative;
       z-index: 4;
       overflow-y: scroll;
-      height: calc(100vh - 61px);
+      height: calc(95vh - 61px);
       width: 100%; }
     body > .navbar-collapse::before {
       top: 0;

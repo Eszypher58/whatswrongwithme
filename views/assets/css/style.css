@@ -306,3 +306,12 @@ div.card {
 .docpic {
   width:50px;
 }
+
+#test {
+  margin: 20px 10px;
+  color: #7D45FC;
+}
+
+textarea {
+    resize: none;
+}

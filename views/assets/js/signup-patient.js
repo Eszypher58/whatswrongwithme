@@ -74,10 +74,10 @@ function onSignIn(googleUser) {
           window.location.href = "/dashboard-patient"
         }
       })
+    } else if (!data) {
+        window.location.href = "/login";
     } else if (data.docPatient === true) {
-        window.location.href = "signup-doctor";
-    } else {
-      window.location.href = "/login"
+      window.location.href = "/signup-doctor";
     }
   })
 }

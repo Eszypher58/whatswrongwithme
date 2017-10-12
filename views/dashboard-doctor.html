@@ -67,7 +67,6 @@
                     </a>
                 </li>
             </ul>
-            <div style="visibility:hidden" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     	</div>
     </div>
 
@@ -99,7 +98,7 @@
             <div class="row">
 
                 <div class="col-md-6">
-                     <p class="welcome-msg">Welcome,<span class="welcome-name"> Dr. Robert Mastey</span>!</p>
+                     <p class="welcome-msg">Welcome,<span id="doctor-name" class="welcome-name"></span>!</p>
                 </div>
 
                 <div class="col-md-offset-3 col-md-3">
@@ -262,6 +261,7 @@
     </footer>
 </div>
 </div>
+<div style="display:none" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 <div class="sign-out content">
     <a onclick="signOut();" class="btn-block text-center btn-login" href="signup"><img class="google-icon" src="assets/img/google.png">Sign Out</a>
 </div>
@@ -291,6 +291,8 @@
 	<script src="assets/js/demo.js"></script>
 
     <script src="assets/js/googleauth.js"></script>
+
+    <script src="assets/js/dashboard-doctor.js"></script>
 
 	<script type="text/javascript">
     	$(document).ready(function(){

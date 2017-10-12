@@ -51,7 +51,7 @@ profileRouter.get("/activeDrs", function(req, res){
 			where: {
 				isActive: true
 			},
-			include: [db.User],
+			include: [db.User, db.Patient],
 			order: [[db.User, "lastName", "ASC"]]
 	}).then(function(data){
 		console.log(data);

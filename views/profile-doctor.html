@@ -42,7 +42,7 @@
             <div><img class="logo" src="assets/img/logo.png"></div>
             <ul class="nav">
                 <li>
-                    <a href="dashboard-doctor.html">
+                    <a href="dashboard-doctor">
                         <div class="sb-item">
                             <i class="pe-7s-home"></i>
                             <p>Dashboard</p>
@@ -50,7 +50,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="profile-doctor.html">
+                    <a href="profile-doctor">
                         <div class="sb-item active">
                             <i class="pe-7s-user"></i>
                             <p>My Profile</p>
@@ -58,7 +58,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="login.html">
+                    <a href="login">
                         <div class="sb-item">
                             <i class="pe-7s-back-2"></i>
                             <p>Log Out</p>
@@ -66,7 +66,6 @@
                     </a>
                 </li>
             </ul>
-            <div style="visibility:hidden" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     	</div>
     </div>
 
@@ -107,13 +106,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>First Name</label>
-                                                <input type="text" class="form-control" placeholder="First Name" value="Robert">
+                                                <input id="first-name" type="text" class="form-control" placeholder="First Name" value="">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Last Name</label>
-                                                <input type="text" class="form-control" placeholder="Last Name" value="Mastey">
+                                                <input id="last-name" type="text" class="form-control" placeholder="Last Name" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -122,19 +121,19 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Date of Birth</label>
-                                                <input type="text" class="form-control" placeholder="mm/dd/yyyy" value="01/24/1980">
+                                                <input id="dob" type="date" class="form-control" placeholder="mm/dd/yyyy" value="">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <input type="text" class="form-control" placeholder="City" value="Irvine">
+                                                <input id="city" type="text" class="form-control" placeholder="City" value="">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>State</label>
-                                                <input type="text" class="form-control" placeholder="State" value="California">
+                                                <input id="state" type="text" class="form-control" placeholder="State" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -143,39 +142,42 @@
                                         <div class="col-md-7">
                                             <div class="form-group">
                                                 <label for="email">Email address</label>
-                                                <input type="email" class="form-control" placeholder="Email" value="rmastey@example.com">
+                                                <input id="email" type="email" class="form-control" placeholder="Email" value="">
                                             </div>
                                         </div>
-                                        <div class="col-md-5">
+                                        <!-- <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="img-url">Upload Photo</label>
                                                 <input type="file" class="form-control-file" id="img-url">
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
+                                        </div> -->
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Specialization</label>
-                                                <input type="text" class="form-control" placeholder="Specialization" value="Family Medicine">
+                                                <input id="specialization" type="text" class="form-control" placeholder="Specialization" value="">
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+
+                                    </div>
+                                    <a id="update" class="btn btn-info btn-fill pull-right btn-update">Update Profile</a>
+                                    <div style="display:none" id="updated"><strong>Profile Updated</strong></div>
+
+                                    <div class="row">
+                                        
+                                        <!-- <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Hospital</label>
-                                                <input type="text" class="form-control" placeholder="Hospital" value="MemorialCare Medical Group">
+                                                <input type="text" class="form-control" placeholder="Hospital" value="">
                                              </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Accepted Insurance</label>
-                                                 <input type="text" class="form-control" placeholder="Accepted Insurance" value="United Health Care">
+                                        </div> -->
+                                        <div class="col-md-12">
+                                            <div id="insurances" class="form-group">
+                                                <label style="display:block">Accepted Insurances</label>
+                                                
                                             </div>
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-info btn-fill pull-right btn-update">Update Profile</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
@@ -188,15 +190,13 @@
                             <div class="content">
                                 <div class="author">
                                      <a href="#">
-                                    <img class="avatar border-gray" src="assets/img/faces/doc-avatar.jpg" alt="..."/>
+                                    <img id="doc-image" class="avatar border-gray" src="" alt="..."/>
 
-                                      <h4 class="title">Dr. Robert Mastey<br />
-                                         <small>robert124</small>
+                                      <h4 id="doctor-name" class="title"> 
                                       </h4>
                                     </a>
                                 </div>
-                                <p class="description text-center"> 
-                                    "Hi, I am Dr. Robert Mastey, Nice to meet you."
+                                <p id="bio" class="description text-center"> 
                                 </p>
                             </div>
                             
@@ -220,6 +220,7 @@
     </footer>
 </div>
 </div>
+<div style="display:none" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 <div class="sign-out content">
     <a onclick="signOut();" class="btn-block text-center btn-login" href="signup"><img class="google-icon" src="assets/img/google.png">Sign Out</a>
 </div>
@@ -249,6 +250,8 @@
 	<script src="assets/js/demo.js"></script>
 
     <script src="assets/js/googleauth.js"></script>
+
+    <script src="assets/js/profile-doctor.js"></script>
 
 	<script type="text/javascript">
     	$(document).ready(function(){

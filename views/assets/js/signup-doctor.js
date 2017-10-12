@@ -19,7 +19,10 @@ function onSignIn(googleUser) {
       $.get("/doctor/user/" + data.id, function(docData) {
         if(!docData) {
           $("#doctor-name").val(googleprofile.getName());
-          $(document).on("click", "#search-for-doctor", function() {
+          $("#search-for-doctor").on("click", function() {
+            $("#search-for-doctor").attr("style", "display:none");
+            $("#reset").attr("style", "display:inline")
+            $("#doc-display").empty();
             var name = $("#doctor-name").val() || "";
             var state = $("#states").val() || "";
             var queryURL = "https://api.betterdoctor.com/2016-03-01/doctors?name=" + name + "&location=" + state + "&skip=0&limit=10&user_key=d9aae6ac51be978b847e7ed2a8ee5b21";
@@ -27,7 +30,6 @@ function onSignIn(googleUser) {
               method:"GET",
               url:queryURL
             }).done (function(response) {
-              $("#doc-display").empty();
               for(var i=0; i<response.data.length; i++) {
                 var doc = $("<div>");
                 doc.attr("class", "col-md-12 selected-doc")
@@ -45,7 +47,7 @@ function onSignIn(googleUser) {
               $(document).on("click", ".selected-doc", function () {
                 $("#doc-display").empty();
                 var val = parseInt($(this).attr("value"));
-                $("#doc-display").append("<p><strong>" + response.data[val].profile.first_name + " " + response.data[val].profile.last_name + "</strong> - " + response.data[val].practices[0].visit_address.city + "</p>");
+                $("#doc-display").append("<p><strong>" + response.data[val].profile.first_name + " " + response.data[val].profile.last_name + "</strong></p>");
                 $("#doc-display").append("<p>" + response.data[val].specialties[0].name + "</p>")
                 $("#doc-display").append("<p>" + response.data[val].profile.bio + "</p>")
                 var insurances = $("<ul>");
@@ -58,10 +60,12 @@ function onSignIn(googleUser) {
                 profileSelected = true;
 
                 $("#create-doctor").on("click", function() {
+                  console.log(response.data);
+                  console.log(response.data[val]);
                   if(profileSelected) {
                     var doctor = {
                       specialization: response.data[val].specialties[0].name,
-                      betterdoctorId: response.data[val].uid,
+                      betterDoctorId: response.data[val].uid,
                       UserId: data.id
                     }
                     $.post("/doctor", doctor)
@@ -75,10 +79,10 @@ function onSignIn(googleUser) {
           window.location.href = "/dashboard-doctor"
         }
       })
+    } else if (!data) {
+        window.location.href = "/login";
     } else if (data.docPatient === false) {
-        window.location.href = "signup-patient";
-    } else {
-      window.location.href = "/login"
+      window.location.href = "/gnup-patient"
     }
   })
 }

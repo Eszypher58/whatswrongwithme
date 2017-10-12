@@ -23,13 +23,14 @@ db.sequelize.sync({  }).then(function(){
   //Send to controller
   app.use(express.static(__dirname + '/views'));
 
-  //Stanley's Code
+  //Set up Controllers
   var mediaRoutes = require("./controllers/media_controller.js");
   var profileRoutes = require("./controllers/profileController.js");
+  var medicalChartRoutes = require("./controllers/medicalChartController.js");
   app.use("/", mediaRoutes);
   app.use("/", profileRoutes);
+  app.use("/", medicalChartRoutes);
   app.use(express.static("media"));
-  //end of Stanley's code
 
   //Routes
   require("./routes/html-routes.js")(app);

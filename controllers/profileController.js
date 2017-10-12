@@ -27,6 +27,7 @@ profileRouter.get("/profile/:id", function(req, res){
 	});
 });
 
+//Gets the profile data for a specific user based on the Google Id
 profileRouter.get("/profile/googleid/:googleid", function(req, res){
 	db.User.findOne(
 		{
@@ -43,23 +44,26 @@ profileRouter.get("/profile/googleid/:googleid", function(req, res){
 });
 
 //Get All Active Doctors
-profileRouter.get("/profile/activeDrs", function(req, res){
+profileRouter.get("/activeDrs", function(req, res){
+	console.log("get dr");
 	db.Doctor.findAll(
-		{
+	{
 			where: {
 				isActive: true
 			},
-			include: [db.User], 
-			order: [User, "lastName", "ASC"]
+			include: [db.User],
+			order: [[db.User, "lastName", "ASC"]]
 	}).then(function(data){
+		console.log(data);
 		res.json(data);
 	}).catch(function(err){
 		throw err;
 	});
-})
+});
 
+//Get Patient based on userId
 profileRouter.get("/patient/user/:userid", function(req, res){
-	db.Doctor.findOne(
+	db.Patient.findOne(
 		{
 			where: {
 				UserId: req.params.userid,
@@ -98,7 +102,7 @@ profileRouter.get("/profile/patients/:drId", function(req, res){
 				DoctorId: req.params.drId
 			},
 			include: [db.User],
-			order: [User, "lastName", "ASC"]
+			order: [[db.User, "lastName", "ASC"]]
 	}).then(function(data){
 		res.json(data);
 	}).catch(function(err){
@@ -187,7 +191,7 @@ profileRouter.post("/patient", function(req, res){
 
 //Delete a specific user, also cascades to delete associated Doctor/Patient profile.  
 //Soft Delete - changes isActive to false, does not remove record
-profileRouter.delete("/:id", function(req, res){
+profileRouter.delete("/profile/:id", function(req, res){
 	db.User.update(
 		{
 			isActive: false

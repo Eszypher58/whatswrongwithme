@@ -82,13 +82,13 @@ body {
                             <div class="clearfix"></div>      
                              
                         </div> <!-- Content Closed -->
-                        <hr>
+                        <!-- <hr>
                         <div class="footer">
                              <a href="signup.html">
                                 <div class="go-back-btn"><i class="fa fa-caret-left" aria-hidden="true"></i>
                                 Go Back</div>
                             </a>
-                        </div>
+                        </div> -->
 
                     </div><!-- Card Closed -->
                 </form>
@@ -123,94 +123,7 @@ body {
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
 
-    <script src="assets/js/googleauth.js"></script>
-    
-    <script>
-        var profileSelected = false;
-        var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'District of Columbia', 'Delaware', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Virgin Islands', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
-        var abb = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'VI', 'WA', 'WV', 'WI', 'WY']
-        for (var i=0; i<states.length; i++) {
-          var state = $("<option>");
-          state.text(abb[i] + ": " + states[i]);
-          state.val(abb[i]);
-          $("#states").append(state);
-        }
+  <script src="assets/js/googleauth.js"></script>
 
-        function onSignIn(googleUser) {
-          var googleprofile = googleUser.getBasicProfile();
-          var myUserEntity = {};
-          myUserEntity.Id = googleprofile.getId();
-          myUserEntity.Name = googleprofile.getName();
-          sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
-          $.get("/profile/googleid/" + googleprofile.getId(), function(data) {
-            console.log(data);
-            if (data) {
-              $.get("/doctor/user/" + data.id, function(docData) {
-                console.log(docData);
-                if(!docData) {
-
-                  $("#doctor-name").val(googleprofile.getName());
-                  $(document).on("click", "#search-for-doctor", function() {
-                    var name = $("#doctor-name").val() || "";
-                    var state = $("#states").val() || "";
-                    var queryURL = "https://api.betterdoctor.com/2016-03-01/doctors?name=" + name + "&location=" + state + "&skip=0&limit=10&user_key=d9aae6ac51be978b847e7ed2a8ee5b21";
-                    $.ajax({
-                      method:"GET",
-                      url:queryURL
-                    }).done (function(response) {
-                      $("#doc-display").empty();
-                      for(var i=0; i<response.data.length; i++) {
-                        var doc = $("<div>");
-                        doc.attr("class", "col-md-12 selected-doc")
-                        var firstName = response.data[i].profile.first_name;
-                        var lastName = response.data[i].profile.last_name;
-                        var pic = $("<img>");
-                        pic.attr("src", response.data[i].profile.image_url);
-                        pic.attr("class", "docpic")
-                        doc.attr("value", i)
-                        doc.append(pic);
-                        doc.append(firstName + " " + lastName)
-                        $("#doc-display").append(doc);
-                        profileSelected = false;
-                      }
-                      $(document).on("click", ".selected-doc", function () {
-                        $("#doc-display").empty();
-                        var val = parseInt($(this).attr("value"));
-                        $("#doc-display").append("<p><strong>" + response.data[val].profile.first_name + " " + response.data[val].profile.last_name + "</strong> - " + response.data[val].practices[0].visit_address.city + "</p>");
-                        $("#doc-display").append("<p>" + response.data[val].specialties[0].name + "</p>")
-                        $("#doc-display").append("<p>" + response.data[val].profile.bio + "</p>")
-                        var insurances = $("<ul>");
-                        for (var i=0; i<response.data[val].insurances.length; i++) {
-                          var ins = "<li>" + response.data[val].insurances[i].insurance_plan.name + "</li>"
-                          insurances.append(ins);
-                        }
-                        $("#doc-display").append("Insurances Accepted: ")
-                        $("#doc-display").append(insurances);
-                        profileSelected = true;
-
-                        $("#create-doctor").on("click", function() {
-                          if(profileSelected) {
-                            var doctor = {
-                              specialization: response.data[val].specialties[0].name,
-                              betterdoctorId: response.data[val].uid,
-                              UserId: data.id
-                            }
-                            $.post("/doctor", doctor)
-                            .then(window.location.href = "/dashboard-doctor")
-                          }
-                        })
-                      });
-                    });
-                  })
-                } else {
-                  window.location.href = "/dashboard-doctor"
-                }
-              })
-            } else {
-              window.location.href = "/login"
-            }
-          })
-        }
-    </script>
-
+  <script src="assets/js/signup-doctor.js"></script>
 </html>

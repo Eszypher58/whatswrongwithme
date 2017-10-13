@@ -18,11 +18,6 @@ module.exports = (sequelize, DataTypes) => {
 
   Doctor.associate = function(models){
     Doctor.hasMany(models.Patient);
-    Doctor.belongsTo(models.Hospital, {
-      foreignKey: {
-        allowNull: true
-      }
-    });
     Doctor.belongsTo(models.User, {
       foreignKey: {
         allowNull: false

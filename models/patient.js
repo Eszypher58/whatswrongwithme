@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     biography: DataTypes.TEXT,
+    insuranceProvider: DataTypes.STRING,
+    insuranceType: DataTypes.STRING,
     isActive: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
@@ -16,11 +18,6 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Patient.associate = function(models){
-    Patient.belongsTo(models.InsuranceProvider, {
-      foreignKey: {
-        allowNull: true
-      }
-    });
     Patient.belongsTo(models.Doctor, {
       foreignKey: {
         allowNull: true
@@ -29,11 +26,6 @@ module.exports = (sequelize, DataTypes) => {
     Patient.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
-      }
-    });
-    Patient.belongsTo(models.Hospital, {
-      foreignKey: {
-        allowNull: true
       }
     });
   };

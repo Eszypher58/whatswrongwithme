@@ -11,13 +11,13 @@ function onSignIn(googleUser) {
           console.log(data)
           $("#doctor-name").text(" Dr. " + data.firstName + " " + data.lastName);
         } else {
-          window.location.href = "/signup-doctor"
+          // window.location.href = "/signup-doctor"
         }
       })
     } else if (!data) {
         window.location.href = "/login";
     } else if (data.docPatient === false) {
-      window.location.href = "/signup-patient";
+      // window.location.href = "/signup-patient";
     }
   })
 }

@@ -8,8 +8,6 @@ function onSignIn(googleUser) {
     $("#last-name").val(googleprofile.getFamilyName());
     $("#email").val(googleprofile.getEmail());
     $.get("/profile/googleid/" + googleprofile.getId(), function(data) {
-        console.log(googleprofile.getId());
-        console.log(data);
         if (!data) {
             $(document).on("click", "#user-submit", function() {
                 var docPatient = $("input[name='radio']:checked").val();
@@ -25,8 +23,6 @@ function onSignIn(googleUser) {
                     email: googleprofile.getEmail(),
                     docPatient: docPatient
                 }
-                console.log(user.googleId);
-                console.log(googleprofile.getId());
                 console.log(user);
                 $.post("/user", user)
                 .then(function() {

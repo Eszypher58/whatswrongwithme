@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "root",
-    "password": "Insecure",
+    "username": "test_user",
+    "password": "12345678",
     "port": 3306,
     "database": "whatswrongwithme_db",
     "host": "127.0.0.1",

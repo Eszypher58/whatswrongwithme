@@ -27,10 +27,14 @@
     <!--  Light Bootstrap Table core CSS    -->
     <link href="assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
-  <!--     Fonts and icons     -->
+    <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
 
 <style type="text/css">
 body {
@@ -40,7 +44,7 @@ body {
 
 </head>
 <body>
-<img class="bg-graphic" src="assets/img/graphic.png">
+<img class="bg-graphic-animate" src="assets/img/graphic.png">
 <div class="wrapper">
     <div class="container">
         <div class="row">                   
@@ -94,6 +98,19 @@ body {
 	<script src="assets/js/demo.js"></script>
 
   <script src="assets/js/googleauthlogin.js"></script>
+
+  <script type="text/javascript">
+      
+      function transition() {
+        // $(".card").hide();
+        // $(".card").fadeIn(1000);
+
+        $(".bg-graphic-animate").animate({top: '-190px', right: '120px'}, 1500);
+      };
+
+      $(document).ready(transition);
+
+    </script>
 	
 
 </html>

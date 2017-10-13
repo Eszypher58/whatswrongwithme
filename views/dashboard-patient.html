@@ -11,6 +11,12 @@
     <meta name="viewport" content="width=device-width" />
 
 
+    <!-- Google Sign In -->
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="638533152381-8qvq5kf5f7u2ra7aqbe0p5hkjcmj8gfu.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
     <!-- Bootstrap core CSS     -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -37,7 +43,7 @@
             <div><img class="logo" src="assets/img/logo.png"></div>
             <ul class="nav">
                 <li>
-                    <a href="dashboard-patient.html">
+                    <a href="dashboard-patient">
                         <div class="sb-item active">
                             <i class="pe-7s-home"></i>
                             <p>Dashboard</p>
@@ -45,7 +51,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="profile-patient.html">
+                    <a href="profile-patient">
                         <div class="sb-item">
                             <i class="pe-7s-user"></i>
                             <p>My Profile</p>
@@ -53,7 +59,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="login.html">
+                    <a href="login">
                         <div class="sb-item">
                             <i class="pe-7s-back-2"></i>
                             <p>Log Out</p>
@@ -242,7 +248,10 @@
     </footer>
 </div>
 </div>
-
+<div style="display:none" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+<div class="sign-out content">
+    <a onclick="signOut();" class="btn-block text-center btn-login" href="signup"><img class="google-icon" src="assets/img/google.png">Sign Out</a>
+</div>
 
 </body>
 
@@ -268,6 +277,8 @@
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
 
+    <script src="assets/js/googleauth.js"></script>
+
 	<script type="text/javascript">
     	$(document).ready(function(){
 
@@ -275,5 +286,7 @@
 
     	});
 	</script>
+
+
 
 </html>

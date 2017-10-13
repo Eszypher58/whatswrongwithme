@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "test_user",
-    "password": "12345678",
+    "username": "root",
+    "password": "Insecure",
     "port": 3306,
     "database": "whatswrongwithme_db",
     "host": "127.0.0.1",
@@ -19,4 +19,4 @@
     "use_env_variable": "JAWSDB_URL",
     "dialect": "mysql"
   }
-}
+} 

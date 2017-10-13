@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       googleId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       token: {
         type: Sequelize.TEXT

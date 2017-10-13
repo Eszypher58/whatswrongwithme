@@ -10,40 +10,38 @@ var fs = require("fs");
 var db = require("./models");
 db.sequelize.sync({  }).then(function(){
 
-	//Set up Express
-	var app = express();
-	var PORT = process.env.PORT || 8080;
 
-	//Set up method-override, body-parser, and handlebars
-	app.use(methodOverride("_method"));
-	app.use(bodyParser.urlencoded({ extended: true }));
-	app.engine("handlebars", handlebars({ defaultLayout: "main" }));
-	app.set("view engine", "handlebars");
+  //Set up Express
+  var app = express();
+  var PORT = process.env.PORT || 8080;
 
-	//Send to controller
-	app.use(express.static(__dirname + '/public'));
+  //Set up method-override, body-parser, and handlebars
+  app.use(methodOverride("_method"));
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.engine("handlebars", handlebars({ defaultLayout: "main" }));
+  app.set("view engine", "handlebars");
 
-    
-    //Stanley's Code
-	var routes = require("./controllers/media_controller.js");
-	app.use(express.static(__dirname + '/UI'));
-    app.use("/", routes);
-	app.use(express.static("media"));
+  //Send to controller
+  app.use(express.static(__dirname + '/views'));
 
-	app.get("/", function(req, res){
+  //Set up Controllers
+  var mediaRoutes = require("./controllers/media_controller.js");
+  var profileRoutes = require("./controllers/profileController.js");
+  var medicalChartRoutes = require("./controllers/medicalChartController.js");
+  app.use("/", mediaRoutes);
+  app.use("/", profileRoutes);
+  app.use("/", medicalChartRoutes);
+  app.use(express.static("media"));
 
-		res.sendFile(path.join(__dirname + "/UI/login.html"));
+  //Routes
+  require("./routes/html-routes.js")(app);
 
-	})
+  //Initialize server
+  app.listen(PORT, function() {
+    console.log('Listening on port ' + PORT);
+  });
 
-
-    //end of Stanley's code
-
-	//Initialize server
-	app.listen(PORT, function() {
-  	console.log('Listening on port ' + PORT);
-	});
 }).catch(function(err){
-	return console.log(err);
+  return console.log(err);
 });
 

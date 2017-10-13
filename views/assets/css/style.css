@@ -215,6 +215,8 @@ div.card {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1px;
+  cursor: pointer;
+  border:0;
 }
 
 .btn-login:hover {
@@ -235,6 +237,11 @@ div.card {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.btn-small {
+  padding: 2px 12px;
 }
 
 .btn-login-ghost:visited {
@@ -275,20 +282,36 @@ div.card {
   color: #00F1B7;
 }
 
+.abcRioButtonBlue {
+  background-color: #7D45FC !important;
+  width: 100% !important;
+}
 
+.sign-out {
+  position: fixed;
+  right:30px;
+  top:10px;
+  z-index: 2000;
+}
 
+.selected-doc {
+  cursor: pointer;
+  margin:10px;
+}
 
+.selected-doc:hover {
+  background-color: #00F1B7;
+}
 
+.docpic {
+  width:50px;
+}
 
+#test {
+  margin: 20px 10px;
+  color: #7D45FC;
+}
 
-
-
-
-
-
-
-
-
-
-
-
+textarea {
+    resize: none;
+}

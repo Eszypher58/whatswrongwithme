@@ -36,6 +36,24 @@
 
 </head>
 <body>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload Heart Rate</h5>
+      </div>
+      <div class="modal-body">
+        <p>Press the record button to record your heart rate</p>
+            <button class="text-center btn-login"><i class="fa fa-microphone" aria-hidden="true"></i>Record</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="text-center btn-modal-green" data-dismiss="modal">Close</button>
+        <button type="button" class="text-center btn-modal-purple" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="wrapper">
     <div class="sidebar" data-color="white">
@@ -59,7 +77,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="login">
+                    <a href="#">
+                        <div class="sb-item" data-toggle="modal" data-target="#myModal">
+                            <i class="pe-7s-paperclip"></i>
+                            <p>Upload</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="signOut();">
                         <div class="sb-item">
                             <i class="pe-7s-back-2"></i>
                             <p>Log Out</p>
@@ -249,9 +275,9 @@
 </div>
 </div>
 <div style="display:none" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-<div class="sign-out content">
+<!-- <div class="sign-out content">
     <a onclick="signOut();" class="btn-block text-center btn-login" href="signup"><img class="google-icon" src="assets/img/google.png">Sign Out</a>
-</div>
+</div> -->
 
 </body>
 

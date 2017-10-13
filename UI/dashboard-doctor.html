@@ -158,24 +158,32 @@
                                     <h4 class="title">Patient's Heart Rate</h4>
                                 </div>
                             </div>
-                        
-                            <div class="col-md-offset-2 col-md-3">
-                                <div class="form-group heartrate-dropdown">
-                                 <select class="form-control">
-                                        <option selected disabled>Choose Heart Rate</option>
-                                        <option>Heart Rate 1</option>
-                                        <option>Heart Rate 2</option>
-                                 </select>
-                                 </div>
+
+                            <div class="col-md-offset-2 col-md-2">
+                                <a class="text-center pull-right btn-purple btn-upload" href="#" id="playSound">Play</a>
                             </div>
-                            <div class="col-md-2">    
-                                <a class="text-center btn-purple btn-upload" href="#">Play</a>
+
+                            <div class="col-md-3">
+                                <div class="form-group heartrate-dropdown">
+                                    <select class="form-control" id="selectSound">
+                                        <option selected disabled>Choose Heart Rate</option>
+                                        <option id="op1">Heart Rate 1</option>
+                                        <option id="op2">Heart Rate 2</option>
+                                        <option id="op3">Heart Rate 3</option>
+                                        <option id="op4">Heart Rate 4</option>
+                                        <option id="op5">Heart Rate 5</option>
+                                    </select>
+                                </div>
+
                             </div>
                         </div>
 
                            
                         <div class="content">
+                        <!--
                             <div id="chartHours" class="ct-chart"></div>
+                        -->
+                            <div id="waveform"></div>
                         </div>
                     </div>
                 </div>
@@ -287,6 +295,277 @@
         	demo.initChartist();
 
     	});
-	</script>
+    </script>
+    
+
+    <!-- the follow javascript files are required -->
+    <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+    
+        <!-- for Edge/FF/Chrome/Opera/etc. getUserMedia support -->
+        <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+        <script src="https://cdn.webrtc-experiment.com/DetectRTC.js"> </script>
+    
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/plugin/wavesurfer.spectrogram.min.js"></script>
+    
+    
+        <script>
+    
+            //create wavesurfer to display a wave file onto the front end html
+            //this simple front end assume server returns an array with file name inside
+            //frontend makes a ajax request to server and display the wave form of the last file in returned data
+    
+            var wavesurfer;
+    
+            //when page load, display the latest wav file.
+            $.ajax({
+    
+                method:"GET",
+                url:"/data.json"
+    
+            }).done(function(data){
+    
+                //console.log(data);
+    
+                //var lastIndex = data.length - 1;
+                var firstIndex = 0;
+    
+                wavesurfer = WaveSurfer.create({
+    
+                    container: "#waveform",
+                    waveColor: 'violet',
+                    progressColor: 'purple'
+    
+                })
+    
+                wavesurfer.load("username/wav/" + data[firstIndex].filename);
+
+                wavesurfer.on("ready", function(){
+
+
+                $("#playSound").attr("data_value", data[firstIndex].filename);
+
+                $("#playSound").on("click", function(e){
+
+                    console.log("clicked playsound");
+
+
+                        wavesurfer.play();
+
+                })
+
+
+
+                })
+
+                for (var i = 0; i < data.length; i++) {
+
+                    $("#op" + (i+1)).attr("data_value", data[i].filename);
+
+                }
+
+
+    
+                /*
+                wavesurfer.on('ready', function () {
+                    var spectrogram = Object.create(WaveSurfer.Spectrogram);
+                    spectrogram.init({
+                        wavesurfer: wavesurfer,
+                        container: "#wave-spectrogram",
+                        fftSamples: 1024,
+                        labels: false
+                    });
+                });
+                */
+    
+            })
+    
+            //attach event listener to all the playbutton, when clicked, go to server and get the wave file, load onto frontend page and start playing
+            $("#selectSound").on("change",function (e){
+
+                //console.log("selected...", this.selectedOptions[0].attributes[1].nodeValue);
+
+                //console.log($("#selectSound"));
+    
+                //var fileToPlay = $(this).attr("data_value");
+                //console.log(fileToPlay);
+                var fileToPlay = this.selectedOptions[0].attributes[1].nodeValue;
+
+                $.ajax({
+    
+                    method:"GET",
+                    url:"/data.json"
+    
+                }).done(function(data){
+    
+                    //console.log(data);
+    
+                    for (var i = 0; i < data.length; i++) {
+    
+                        var fileInJson = data[i].filename;
+    
+                        //console.log(fileInJson);
+                        
+                        if (fileToPlay === fileInJson) {
+    
+                            wavesurfer.destroy();
+    
+                            wavesurfer = WaveSurfer.create({
+    
+                                container: "#waveform",
+                                waveColor: 'violet',
+                                progressColor: 'purple'
+    
+                            });
+    
+                            var fileLocation = data[i].location;
+                            var fileName = data[i].filename;
+    
+                            //console.log(fileLocation, fileName);
+    
+                            wavesurfer.load("username/wav" + "/" + fileName);
+    
+                            wavesurfer.on('ready', function () {
+    
+                                $("#playSound").on("click", function(e){
+
+                                    console.log("clicked playsound");
+
+
+                                    wavesurfer.play();
+
+                                })
+
+                                //wavesurfer.play();
+    
+                                /*
+                                var spectrogram = Object.create(WaveSurfer.Spectrogram);
+                                spectrogram.init({
+                                    wavesurfer: wavesurfer,
+                                    container: "#wave-spectrogram",
+                                    fftSamples: 512,
+                                    labels: false
+                                });
+                                */
+    
+                            });
+    
+                        }
+    
+                    }
+    
+                })
+    
+            })
+    
+        </script>
+    
+        <script>
+    
+        //records audio from the microphone, user needs to accept the use of microphone.
+        //there is NO check for if user denied microphone permission as of now
+    
+        var recorder;
+        var audioStream;
+    
+    
+        //when clicked on start, start recording
+        $("#start").on("click", function(e){
+    
+            console.log("clicked start");
+    
+            navigator.mediaDevices.getUserMedia({audio: true, video:false,}).then(function(stream) {
+    
+                audioStream = stream;
+    
+                var recordDuration = 5000;
+    
+                recorder = new StereoAudioRecorder(stream, {
+                    sampleRate: 44100,
+                    bufferSize: 4096,
+                    numberOfAudioChannels: 1
+                });
+    
+                recorder.record();
+                console.log("start recording");
+    
+                setTimeout(function(){
+    
+                    recorder.stop(function(blob){
+    
+                        var now = Date.now();
+                        var fileName = now + ".wav";
+    
+                        if(!recorder) return alert('No recording found.');
+                    
+                        $.ajax({
+    
+                            type: 'POST',
+                            url: '/media',
+                            data: blob,
+                            processData: false,
+                            contentType: false
+    
+                        }).done(function(data){
+    
+                            console.log("successfully saved wav file");
+                            //jquery 
+                            audioStream.stop();
+                            location.reload();
+    
+                        })
+    
+                    })
+    
+                }, recordDuration);
+    
+            }).catch(function(error) {
+                
+                if(error && error.name === 'ConstraintNotSatisfiedError') {
+                    console.log("something bad happened");
+                }
+    
+                errorCallback(error);
+                });
+    
+    
+    
+        })
+    
+        //when user clicked on stop, stop recording and post data via ajax to server
+        $("#stop").on("click", function(e){
+    
+            //console.log("clicked stop");
+            recorder.stop(function(blob){
+    
+                var now = Date.now();
+                var fileName = now + ".wav";
+    
+                if(!recorder) return alert('No recording found.');
+                
+                $.ajax({
+    
+                    type: 'POST',
+                    url: '/media',
+                    data: blob,
+                    processData: false,
+                    contentType: false
+    
+                }).done(function(data){
+    
+                    console.log("successfully saved wav file");
+                    audioStream.stop();
+                    location.reload();
+    
+                })
+    
+    
+            })
+    
+        })
+    
+    
+    </script>
 
 </html>

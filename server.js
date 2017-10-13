@@ -10,6 +10,7 @@ var fs = require("fs");
 var db = require("./models");
 db.sequelize.sync({  }).then(function(){
 
+
   //Set up Express
   var app = express();
   var PORT = process.env.PORT || 8080;
@@ -39,6 +40,7 @@ db.sequelize.sync({  }).then(function(){
   app.listen(PORT, function() {
     console.log('Listening on port ' + PORT);
   });
+
 }).catch(function(err){
   return console.log(err);
 });

@@ -2,6 +2,13 @@
   box-sizing: border-box;
 }
 
+.bg-graphic {
+  position: fixed;
+  right: -70px;
+  top: -170px;
+  height: 88%;
+}
+
 /*SIDEBAR*/
 .sidebar {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
@@ -282,9 +289,78 @@ div.card {
   color: #00F1B7;
 }
 
+/*Modal*/
+.close {
+  top: 30px;
+}
+
+.btn-modal-purple {
+  display: inline-block;
+  border: 1px solid #7D45FC;
+  border-radius: 5px;
+  padding: 10px 18px;
+  text-decoration: none;
+  outline: none;
+  color: #7D45FC;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 15px;
+  margin-left: 10px;
+  background: #fff;
+}
+
+.btn-modal-purple:visited {
+  color: #7D45FC;
+}
+
+.btn-modal-purple:hover {
+  background: #7D45FC;
+  color: #ffffff;
+}
+
+.btn-modal-green {
+  display: inline-block;
+  border: 1px solid #00F1B7;
+  border-radius: 5px;
+  padding: 10px 18px;
+  text-decoration: none;
+  outline: none;
+  color: #00F1B7;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 15px;
+  margin-left: 10px;
+  background: #fff;
+}
+
+.btn-modal-green:visited {
+  color: #00F1B7;
+}
+
+.btn-modal-green:hover {
+  background: #00F1B7;
+  color: #ffffff;
+}
+
 .abcRioButtonBlue {
   background-color: #7D45FC !important;
   width: 100% !important;
+  border-radius: 5px !important;
+}
+
+.abcRioButtonIcon {
+  border-radius: 5px !important;
+}
+
+.abcRioButtonContents span {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px
 }
 
 .sign-out {

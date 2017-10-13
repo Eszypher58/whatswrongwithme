@@ -1,5 +1,5 @@
 var express = require("express");
-var db = require("../models/index.js");
+var db = require("../models");
 var makeDir = require("make-dir");
 var bodyParser = require("body-parser");
 var fs = require("fs");
@@ -14,7 +14,7 @@ router.get("/media", function(req, res){
     
     console.log("hit /media with get method");
 
-    db.Media_Test.findAll({
+    db.Media.findAll({
 
         order: [["id", "DESC"]],
         limit: 5,
@@ -32,7 +32,7 @@ router.get("/data.json", function(req, res){
     
     console.log("hit /data.json with get method");
 
-    db.Media_Test.findAll({
+    db.Media.findAll({
 
         order: [["id", "DESC"]],
         limit: 5,
@@ -45,7 +45,7 @@ router.get("/data.json", function(req, res){
 
 });
 
-router.post('/media', function (req, res) {
+router.post('/media/:id', function (req, res) {
   
     var audioBlob = req.body;
     var now = Date.now();
@@ -63,10 +63,11 @@ router.post('/media', function (req, res) {
             }
 
             //using Media_Test
-            db.Media_Test.create({
+            db.Media.create({
 
                 filename: fileName,
-                location: location
+                location: location,
+                PatientId: req.params.id
 
             }).then(function(result){
 

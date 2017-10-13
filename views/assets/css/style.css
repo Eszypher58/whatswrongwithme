@@ -4,8 +4,8 @@
 
 .bg-graphic {
   position: fixed;
-  right: -70px;
-  top: -170px;
+  top:-190px;
+  right: 120px;
   height: 88%;
 }
 
@@ -183,7 +183,7 @@
 
 .description {
   margin: 20px auto;
-  max-width: 250px;
+  max-width: 280px;
 }
 
 textarea {
@@ -196,7 +196,7 @@ div.card {
 }
 
 .login-card {
-  margin-top: 100px;
+  margin-top: 160px;
   padding: 20px;
 }
 
@@ -289,11 +289,29 @@ div.card {
   color: #00F1B7;
 }
 
-/*Modal*/
-.close {
-  top: 30px;
+.role-icon {
+  height: 80px;
+  margin-right: 40px;
 }
 
+input[type=radio]:checked + label>img {
+  border: 2px solid #00F1B7;
+  
+}
+
+.input-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+.role {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-left: 15px;
+}
+
+/*Modal*/
 .btn-modal-purple {
   display: inline-block;
   border: 1px solid #7D45FC;
@@ -346,6 +364,7 @@ div.card {
   color: #ffffff;
 }
 
+
 .abcRioButtonBlue {
   background-color: #7D45FC !important;
   width: 100% !important;
@@ -360,7 +379,7 @@ div.card {
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 1px
+  letter-spacing: 1px;
 }
 
 .sign-out {
@@ -381,6 +400,7 @@ div.card {
 
 .docpic {
   width:50px;
+  margin-right: 15px;
 }
 
 #test {

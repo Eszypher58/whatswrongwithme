@@ -11,7 +11,7 @@
     "username": "root",
     "password": "root",
     "port": 8889,
-    "database": "whatswrongwithme_db",
+    "database": "whatswrongwithmeTEST_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

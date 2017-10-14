@@ -1,7 +1,5 @@
 var showComments = function(patientId, patientPic, doctorPic, patientName, doctorName){
-    console.log("in comments");
     $.get("/chart/" + patientId, function(data){
-        console.log(data);
         for(var i = 0; i < data.length; i++){     
             var pic = "";
             var name = "";
@@ -21,7 +19,6 @@ var showComments = function(patientId, patientPic, doctorPic, patientName, docto
             commentHtml += updated + '</p> </div> <div> <p class="chat-text">'
             commentHtml += chatText + '</p> </div> </div>';
             $("#comments").append(commentHtml);
-            console.log(commentHtml);
         }
     });
 };
@@ -36,7 +33,6 @@ function onSignIn(googleUser) {
     $.get("/profile/googleid/" + googleprofile.getId(), function(data) {
     
         if ((data) && (data.docPatient === false)) {
-            console.log(data);
             var patientName = data.firstName + " " + data.lastName;
             var patientId = data.Patient.id;
             var patientPic = data.imgUrl;
@@ -45,7 +41,6 @@ function onSignIn(googleUser) {
             displayWave(data.firstName, data.lastName);
             wavRecorder(data.firstName, data.lastName);
             $.get("/doctor/doctor/" + doctorId, function(result){
-                console.log("doctor: " + result);
                 var doctorName = result.User.firstName + " " + result.User.lastName;
                 $("#doctor-name").text(doctorName);    
                 var queryURL = "https://api.betterdoctor.com/2016-03-01/doctors/" + result.betterDoctorId + "?user_key=d9aae6ac51be978b847e7ed2a8ee5b21";
@@ -53,7 +48,6 @@ function onSignIn(googleUser) {
                   method:"GET",
                   url:queryURL
                 }).done (function(response) {
-                    console.log(response);
                     var drPic = response.data.profile.image_url;
                     $("#rating").text(response.data.ratings[0]);
                     var specialties = response.data.specialties[0].name;
@@ -79,4 +73,40 @@ function onSignIn(googleUser) {
             });
         }
     });
+    $(document).on("click", "#chatBtn", insertComment);
+
+    // This function inserts a new todo into our database and then updates the view
+    function insertComment(event) {
+        event.preventDefault();
+        $.get("/profile/googleid/" + googleprofile.getId(), function(data) {
+            if ((data) && (data.docPatient === false)) {
+                var patientName = data.firstName + " " + data.lastName;
+                var patientId = data.Patient.id;
+                var patientPic = data.imgUrl;
+                var doctorId = data.Patient.DoctorId;
+                var newComment = {
+                  comment: $("#newComment").val().trim(),
+                  isDrComment: false,
+                  PatientId: patientId,
+                  DoctorId: doctorId
+                };
+                $.get("/doctor/doctor/" + doctorId, function(result){
+                    var doctorName = result.User.firstName + " " + result.User.lastName;
+                    $("#doctor-name").text(doctorName);    
+                    var queryURL = "https://api.betterdoctor.com/2016-03-01/doctors/" + result.betterDoctorId + "?user_key=d9aae6ac51be978b847e7ed2a8ee5b21";
+                   $.ajax({
+                      method:"GET",
+                      url:queryURL
+                    }).done (function(response) {
+                        $.post("/chart", newComment, function(data){
+                            var drPic = response.data.profile.image_url;
+                            $("#comments").empty();
+                            showComments(patientId, patientPic, drPic, patientName, doctorName)
+                            $("#newComment").val("");
+                        });
+                    });
+                });
+            }
+        });
+    };
 };

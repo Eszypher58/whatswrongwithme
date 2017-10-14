@@ -93,6 +93,23 @@ profileRouter.get("/doctor/user/:userid", function(req, res){
 	});
 });
 
+//Get Doctor based on doctorId
+profileRouter.get("/doctor/doctor/:doctorid", function(req, res){
+	db.Doctor.findOne(
+		{
+			where: {
+				UserId: req.params.doctorid,
+				isActive: true
+			},
+			include: [db.User]
+	}).then(function(data){
+		console.log(data);
+		res.json(data);
+	}).catch(function(err){
+		throw err;
+	});
+});
+
 //Get All Active Patients of a Specific Doctor
 profileRouter.get("/profile/patients/:drId", function(req, res){
 	db.Patient.findAll(

@@ -74,6 +74,14 @@
   margin-bottom: 10px;
 }
 
+/*.long-text {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}*/
+
+
 /*Heart Rate Card*/
 .btn-purple {
   display: inline-block;

@@ -74,6 +74,9 @@ function onSignIn(googleUser) {
             $("#comments").empty();
             showComments(result[patientIndex].id, patientPic, doctorPic, patientName, doctorName);
 
+            displayWave(data.firstName, data.lastName, patientId);
+            wavRecorder(data.firstName, data.lastName, patientId);
+
             $(document).on("click", "#chatBtn", insertComment);
 
     // This function inserts a new todo into our database and then updates the view

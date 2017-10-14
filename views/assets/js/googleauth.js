@@ -12,7 +12,7 @@ function checkIfLoggedIn()
 {
   if(sessionStorage.getItem('myUserEntity') == null){
     //Redirect to login page, no user entity available in sessionStorage
-    window.location.href='Login.html';
+    window.location.href='/login';
   } else {
     //User already logged in
     var userEntity = {};

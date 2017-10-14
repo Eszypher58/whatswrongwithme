@@ -128,8 +128,8 @@
 
                         <div class="content info">
                             <div class="name-div">
-                                <img class="img-circle profile-avatar" src="assets/img/faces/user-avatar.jpg">
-                                <h5 class="name" id="patientName">Christine Parker</h5>
+                                <img class="img-circle profile-avatar" id="patientAvatar">
+                                <h5 class="name" id="patientName"></h5>
                             </div>
                                 
                             <div class="table-full-width">
@@ -137,22 +137,22 @@
                                     <tbody>
                                         <tr>
                                             <td class="info-title">Date of Birth</td>
-                                            <td class="text-right" id="dob">01/23/1980</td>
+                                            <td class="text-right" id="dob"></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td class="info-title">Email</td>
-                                            <td class="text-right" id="email">cparker@example.com</td>
+                                            <td class="text-right" id="email"></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td class="info-title">Location</td>
-                                            <td class="text-right" id="location">Irvine, California</td>
+                                            <td class="text-right" id="location"></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td class="info-title">Insurance Provider</td>
-                                            <td class="text-right" id="insurance">United Health Care</td>
+                                            <td class="text-right" id="insurance"></td>
                                             <td></td>
                                         </tr>
                                     </tbody>
@@ -208,47 +208,13 @@
                         </div>
 
                         <div class="content">
-                            <div class="chat-box">
-                                <div>
-                                    <img class="img-circle chat-avatar" src="assets/img/faces/doc-avatar.jpg">
-                                    <h5 class="chat-sender">Dr. Robert Mastey</h5>
-                                    <p class="chat-time"><i class="ace-icon fa fa-clock-o"></i>1d ago</p>
-                                    
-                                </div>
-                                <div>
-                                    <p class="chat-text">Hi, How may I help you?</p>
-                                </div>
-                            </div>
-
-                            <div class="chat-box">
-                                <div>
-                                    <img class="img-circle chat-avatar" src="assets/img/faces/user-avatar.jpg">
-                                    <h5 class="chat-sender">Christine</h5>
-                                    <p class="chat-time"><i class="ace-icon fa fa-clock-o"></i>1d ago</p>
-                                    
-                                </div>
-                                <div>
-                                    <p class="chat-text">Hi Doctor, I am having headache since 3 days...</p>
-                                </div>
-                            </div>
-
-                            <div class="chat-box">
-                                <div>
-                                    <img class="img-circle chat-avatar" src="assets/img/faces/doc-avatar.jpg">
-                                    <h5 class="chat-sender">Dr. Robert Mastey</h5>
-                                    <p class="chat-time"><i class="ace-icon fa fa-clock-o"></i>1d ago</p>
-                                    
-                                </div>
-                                <div>
-                                    <p class="chat-text">Do you have any other symptoms?</p>
-                                </div>
-                            </div>
+                            <div id="comments"></div>
 
                             <div class="reply">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Reply here">
+                                    <input type="text" class="form-control" placeholder="Reply here" id="newComment">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-reply" type="button">Submit</button>
+                                        <button class="btn btn-reply" type="button" id="chatBtn">Submit</button>
                                     </span>
                                 </div>
                             </div>

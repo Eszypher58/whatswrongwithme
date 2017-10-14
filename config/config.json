@@ -1,8 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
-    "port": 8889,
+    "username": "test_user",
+    "password": "12345678",
+    "port": 3306,
+
     "database": "whatswrongwithme_db",
     "host": "127.0.0.1",
     "dialect": "mysql"

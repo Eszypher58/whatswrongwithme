@@ -38,8 +38,8 @@ function onSignIn(googleUser) {
             var patientPic = data.imgUrl;
             $("#patient-name").text(" " + patientName);
             var doctorId = data.Patient.DoctorId;
-            displayWave(data.firstName, data.lastName);
-            wavRecorder(data.firstName, data.lastName);
+            displayWave(data.firstName, data.lastName, patientId);
+            wavRecorder(data.firstName, data.lastName, patientId);
             $.get("/doctor/doctor/" + doctorId, function(result){
                 var doctorName = result.User.firstName + " " + result.User.lastName;
                 $("#doctor-name").text(doctorName);    

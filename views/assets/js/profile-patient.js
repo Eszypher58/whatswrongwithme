@@ -54,6 +54,10 @@ function onSignIn(googleUser) {
           $("#state").val(data.state);
           $("#email").val(data.email);
 
+
+          displayWave(data.firstName, data.lastName, patientData.id);
+          wavRecorder(data.firstName, data.lastName, patientData.id);
+
           $("#patient-image").attr("src", data.imgUrl);
           $("#patient-name").text(data.firstName + " " + data.lastName);
           $(".bio").text(patientData.biography);

@@ -1,7 +1,7 @@
         //records audio from the microphone, user needs to accept the use of microphone.
         //there is NO check for if user denied microphone permission as of now
   
-function wavRecorder(first, last){
+function wavRecorder(first, last, patientId){
         var recorder;
         var audioStream;
     
@@ -37,7 +37,7 @@ function wavRecorder(first, last){
 
                         //var firstName = $("#first-name").text();
                         //var lastName = $("#last-name").text();
-
+                        
                         var firstName = first;
                         var lastName = last;
 
@@ -47,7 +47,7 @@ function wavRecorder(first, last){
                         $.ajax({
     
                             type: 'POST',
-                            url: '/media/' + name,
+                            url: '/media/' + patientId,
                             data: blob,
                             processData: false,
                             contentType: false

@@ -1,6 +1,7 @@
         //records audio from the microphone, user needs to accept the use of microphone.
         //there is NO check for if user denied microphone permission as of now
-    
+  
+function wavRecorder(first, last){
         var recorder;
         var audioStream;
     
@@ -34,8 +35,11 @@
     
                         if(!recorder) return alert('No recording found.');
 
-                        var firstName = $("#first-name").text();
-                        var lastName = $("#last-name").text();
+                        //var firstName = $("#first-name").text();
+                        //var lastName = $("#last-name").text();
+
+                        var firstName = first;
+                        var lastName = last;
 
                         var name = firstName + "_" + lastName;
                         console.log(name);
@@ -75,5 +79,5 @@
     
         })
 
-    
+    }
     

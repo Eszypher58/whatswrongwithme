@@ -43,6 +43,7 @@ function onSignIn(googleUser) {
             $("#patient-name").text(" " + patientName);
             var doctorId = data.Patient.DoctorId;
             displayWave(data.firstName, data.lastName);
+            wavRecorder(data.firstName, data.lastName);
             $.get("/doctor/doctor/" + doctorId, function(result){
                 console.log("doctor: " + result);
                 var doctorName = result.User.firstName + " " + result.User.lastName;

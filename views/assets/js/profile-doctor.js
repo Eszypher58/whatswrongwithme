@@ -8,8 +8,10 @@ function onSignIn(googleUser) {
     if ((data) && (data.docPatient === true)) {
       $.get("/doctor/user/" + data.id, function(docData) {
         if(docData) {
+          console.log(docData);
           $("#first-name").val(data.firstName);
           $("#last-name").val(data.lastName);
+
           $("#dob").val(data.dob.split("T")[0]);
           $("#city").val(data.city);
           $("#state").val(data.state);
@@ -24,6 +26,7 @@ function onSignIn(googleUser) {
             url:queryURL
           }).done (function(response) {
             $("#bio").text(response.data.profile.bio)
+
             
             for (var i=0; i<response.data.insurances.length; i++) {
               var ins = "<div class='form-control' style ='font-size: 10px; width:33%; float:left'>" + response.data.insurances[i].insurance_plan.name + "</div>"

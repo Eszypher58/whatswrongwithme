@@ -193,9 +193,6 @@
   max-width: 280px;
 }
 
-textarea {
-  max-width: 770px;
-}
 
 /*LOGIN*/
 div.card {
@@ -431,3 +428,12 @@ textarea {
   margin: 0px 5%;
   width: 90%;
 }
+
+.tab:hover {
+  color: #00F1B7;
+}
+
+.btn-upload {
+  margin-left: 10px;
+}
+

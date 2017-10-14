@@ -65,6 +65,8 @@ function onSignIn(googleUser) {
             if(completed) {
               var patient = {
                 biography: $("#bio").val(),
+                insuranceProvider: $("#ins").val(),
+                insuranceType: $("#ins-type").val(),
                 UserId: data.id,
                 DoctorId: $("#doctors").val()
               }

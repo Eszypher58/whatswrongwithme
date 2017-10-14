@@ -42,4 +42,8 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../views/dashboard-doctor.html"));
   });
 
+  app.get("/myfiles", function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/myfiles.html"));
+  });
+
 };

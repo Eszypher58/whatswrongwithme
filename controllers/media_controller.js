@@ -74,8 +74,8 @@ router.get("/media/data/:name", function(req, res){
 
 
 });
-
 router.post('/media/:name', function (req, res) {
+
   
     var audioBlob = req.body;
     var nameString = req.params.name;
@@ -138,7 +138,6 @@ router.post('/media/:name', function (req, res) {
                 });
 
 
-
     }).catch(function(err){
 
         throw err;
@@ -148,5 +147,92 @@ router.post('/media/:name', function (req, res) {
 
     
 });
+
+//This is for uploading any file.
+router.post("/media/api/upload", function(req, res) {
+    var post = req.body;
+    var id = post.id;
+    var file = req.files.upload;
+    var fileName = file.name;
+
+    if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ){
+      file.mv('views/uploads/'+file.name, function(err) {
+        if (err) {
+          return console.log(err);
+        }
+        db.Media.create({
+
+            filename: fileName,
+            location: "",
+            type: "image",
+            PatientId: id
+
+        }).then(function(data){
+
+            res.redirect("/myfiles");
+
+        }).catch(function(err){
+
+            throw err;
+
+        })
+      });
+    } else if(file.mimetype == "video/mp4" ||file.mimetype == "video/3gpp"||file.mimetype == "video/mpeg"||file.mimetype == "video/x-msvideo"||file.mimetype == "video/quicktime" ){
+      file.mv('views/uploads/'+file.name, function(err) {
+        if (err) {
+          return err;
+        }
+        db.Media.create({
+
+            filename: fileName,
+            location: "",
+            type: "video",
+            PatientId: id
+
+        }).then(function(result){
+
+            res.redirect("/myfiles");
+
+        }).catch(function(err){
+
+            throw err;
+
+        })
+      });
+    } else if(file.mimetype == "audio/mpeg" ||file.mimetype == "audio/ogg"||file.mimetype == "audio/wav"||file.mimetype == "video/x-msvideo"||file.mimetype == "video/quicktime" ){
+      file.mv('views/uploads/'+file.name, function(err) {
+        if (err) {
+          return err;
+        }
+        db.Media.create({
+
+            filename: fileName,
+            location: "",
+            type: "audio",
+            PatientId: id
+
+        }).then(function(result){
+
+            res.redirect("/myfiles");
+
+        }).catch(function(err){
+
+            throw err;
+
+        })
+      });
+    } else {
+      message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+      res.render("hello");
+    }
+})
+
+//This is for getting the list of all files for a particular patient.
+router.get("/all-patient-uploads/:patientId", function(req, res) {
+    db.Media.findAll({ where: { PatientId: req.params.patientId}}).then(function(data){
+        res.json(data)
+    })
+})
+
 
 module.exports = router;

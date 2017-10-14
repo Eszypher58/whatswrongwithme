@@ -418,3 +418,16 @@ input[type=radio]:checked + label>img {
 textarea {
     resize: none;
 }
+
+.img-modal-body img {
+  height:initial !important;
+}
+
+.modal-dialog {
+  width:80%;
+}
+
+#video-table {
+  margin: 0px 5%;
+  width: 90%;
+}

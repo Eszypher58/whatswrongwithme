@@ -1,3 +1,5 @@
+var patientId;
+
 function onSignIn(googleUser) {
   var googleprofile = googleUser.getBasicProfile();
   var myUserEntity = {};
@@ -8,6 +10,7 @@ function onSignIn(googleUser) {
     if ((data) && (data.docPatient === false)) {
       $.get("/patient/user/" + data.id, function(patientData) {
         if(patientData) {
+          $("#patient-id").val(patientData.id);
           $("#first-name").val(data.firstName);
           $("#last-name").val(data.lastName);
           $("#dob").val(data.dob.split("T")[0]);
@@ -48,8 +51,6 @@ function onSignIn(googleUser) {
                 }
             });
           })
-
-
         } else {
           window.location.href = "/signup-patient"
         }

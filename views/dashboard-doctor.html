@@ -98,14 +98,13 @@
             <div class="row">
 
                 <div class="col-md-6">
-                     <p class="welcome-msg">Welcome,<span id="doctor-name" class="welcome-name"></span>!</p>
+                     <p class="welcome-msg">Welcome,<span class="welcome-name" id="doctor-name"></span> !</p>
                 </div>
 
                 <div class="col-md-offset-3 col-md-3">
                     <div class="form-group">
-                        <select class="form-control">
+                        <select class="form-control" id="patientList">
                             <option selected disabled>My Patients</option>
-                            <option>Christine Parker</option>
                         </select>
                     </div>
                 </div>
@@ -122,7 +121,7 @@
                         <div class="content info">
                             <div class="name-div">
                                 <img class="img-circle profile-avatar" src="assets/img/faces/user-avatar.jpg">
-                                <h5 class="name">Christine Parker</h5>
+                                <h5 class="name" id="patientName">Christine Parker</h5>
                             </div>
                                 
                             <div class="table-full-width">
@@ -310,6 +309,22 @@
         	demo.initChartist();
 
     	});
-	</script>
+    </script>
+    
+        <!-- the follow javascript files are required -->
+        <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+        
+            <!-- for Edge/FF/Chrome/Opera/etc. getUserMedia support -->
+            <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+            <script src="https://cdn.webrtc-experiment.com/DetectRTC.js"> </script>
+        
+            <script src="http://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/plugin/wavesurfer.spectrogram.min.js"></script>
+    
+        <script src="assets/js/wave.js"></script>
+        
+    
+        <script src="assets/js/recorder.js"></script>
 
 </html>

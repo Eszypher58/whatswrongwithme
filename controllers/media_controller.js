@@ -45,7 +45,6 @@ router.get("/data.json", function(req, res){
 
 });
 
-
 router.post('/media/:id', function (req, res) {
   
     var audioBlob = req.body;
@@ -63,6 +62,8 @@ router.post('/media/:id', function (req, res) {
             
             }
 
+            console.log("written file");
+
             //using Media_Test
             db.Media.create({
 
@@ -70,6 +71,7 @@ router.post('/media/:id', function (req, res) {
                 location: location,
                 type: "audio",
                 PatientId: req.params.id
+
 
             }).then(function(result){
 

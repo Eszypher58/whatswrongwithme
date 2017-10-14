@@ -138,7 +138,7 @@
     <div class="content">
         <div class="container-fluid">
 
-            <p class="welcome-msg">Welcome,<span class="welcome-name"> Christine</span>!</p>
+            <p class="welcome-msg">Welcome,<span class="welcome-name" id="first-name"></span><span class="welcome-name" id="last-name"></span>!</p>
 
             <div class="row">
 
@@ -337,7 +337,18 @@
     	});
 	</script>
    
-
+    <!-- the follow javascript files are required -->
+    <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+    
+        <!-- for Edge/FF/Chrome/Opera/etc. getUserMedia support -->
+        <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+        <script src="https://cdn.webrtc-experiment.com/DetectRTC.js"> </script>
+    
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/plugin/wavesurfer.spectrogram.min.js"></script>
+    
+    
 
     <script src="assets/js/dashboard-patient.js"></script>
 

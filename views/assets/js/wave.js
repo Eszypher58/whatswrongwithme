@@ -1,13 +1,16 @@
 //create wavesurfer to display a wave file onto the front end html
 //this simple front end assume server returns an array with file name inside
 //frontend makes a ajax request to server and display the wave form of the last file in returned data
-function displayWave(){
+function displayWave(first, last){
+    console.log("displaywave called");
 
     var wavesurfer;
         
     //when page load, display the latest wav file.
-    var firstName = $("#first-name").text();
-    var lastName = $("#last-name").text();
+    //var firstName = $("#first-name").text();
+    //var lastName = $("#last-name").text();
+    var firstName = first;
+    var lastName = last;
     var name = firstName + "_" + lastName;
     console.log(name);
 

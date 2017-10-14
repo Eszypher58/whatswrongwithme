@@ -186,7 +186,7 @@
 
                     </div> 
                     <!-- Info Card End -->
-    
+    </div>
                     <div class="col-md-8">
                         <div class="card">
                             <div class="row">
@@ -209,29 +209,16 @@
                                     </div>
     
                                 </div>
-    
+
                                 <div class="col-md-2">    
                                     <a class="text-center btn-purple btn-upload" id="playSound" href="#">Play</a>
 
                                 </div>
-                            </div>
+                                </div>
                         
-                            <div class="col-md-offset-2 col-md-3">
-                                <div class="form-group heartrate-dropdown">
-                                 <select class="form-control">
-                                        <option selected disabled>Choose Heart Rate</option>
-                                        <option>Heart Rate 1</option>
-                                        <option>Heart Rate 2</option>
-                                 </select>
-                                 </div>
-                            </div>
-                            <div class="col-md-2">    
-                                <a class="text-center btn-purple btn-upload" href="#">Play</a>
-                            </div>
-                        </div>
 
                         <div class="content">
-                            <div id="chartHours" class="ct-chart"></div>
+                            <div id="waveform"></div>
                         </div>
                     </div>
                 </div>
@@ -345,16 +332,19 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
+        	demo.initChartist();
 
+    	});
+	</script>
    
-        <script src="assets/js/wave.js"></script>
-        
-    
-        <script src="assets/js/recorder.js"></script>
+
 
     <script src="assets/js/dashboard-patient.js"></script>
 
+    <script src="assets/js/wave.js"></script>
+    
 
+    <script src="assets/js/recorder.js"></script>
 
 
 </html>

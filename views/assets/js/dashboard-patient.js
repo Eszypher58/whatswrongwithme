@@ -15,11 +15,11 @@ function onSignIn(googleUser) {
     
                     $("#first-name").html(data.firstName);
                     //console.log($("#first-name"));
-                    //console.log(data.firstName);
+                    console.log(data.firstName);
     
                     $("#last-name").html(data.lastName);
 
-                    displayWave();
+                    displayWave(data.firstName, data.lastName);
     
             }
         })

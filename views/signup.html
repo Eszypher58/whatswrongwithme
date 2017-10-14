@@ -41,7 +41,7 @@ body {
 
 </head>
 <body>
-
+<img class="bg-graphic" src="assets/img/graphic.png">
 <div class="wrapper">
     <div class="container">
         <div class="row">                   
@@ -93,23 +93,27 @@ body {
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Email address</label>
                                         <input id="email" type="email" class="form-control" placeholder="Email">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-7">
                                    <label>Are you a doctor or a patient?</label>
                                     <div class="form-check form-check-inline">
-                                        <label>
-                                            <input id="radio1" name="radio" type="radio" class="custom-control-input" value="0" checked>
-                                            <span class="boolean">Patient</span>
-                                        </label>
-                                        <label>
-                                            <input id="radio2" name="radio" type="radio" class="custom-control-input" value="1">
-                                            <span class="boolean">Doctor</span>
-                                        </label>
+                                       
+                                            <input id="patient" name="radio" type="radio" class="input-hidden" value="0" checked>
+                                            <label for="patient">
+                                                <img class="role-icon" src="assets/img/patient.png"/>
+                                                <p class="role">Patient</p>
+                                            </label>
+
+                                            <input id="doctor" name="radio" type="radio" class="input-hidden" value="1" checked>
+                                            <label for="doctor">
+                                                <img class="role-icon" src="assets/img/doctor.png"/>
+                                                <p class="role">Doctor</p>
+                                            </label>
                                     </div>
                             </div>
 

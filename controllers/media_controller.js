@@ -45,7 +45,7 @@ router.get("/data.json", function(req, res){
 
 });
 
-router.post('/media/:id', function (req, res) {
+router.post('/media', function (req, res) {
   
     var audioBlob = req.body;
     var now = Date.now();
@@ -62,12 +62,15 @@ router.post('/media/:id', function (req, res) {
             
             }
 
+            console.log("written file");
+
             //using Media_Test
             db.Media.create({
 
                 filename: fileName,
                 location: location,
-                PatientId: req.params.id
+                PatientId: 1
+                //PatientId: req.params.id
 
             }).then(function(result){
 

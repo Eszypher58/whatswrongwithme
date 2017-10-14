@@ -18,6 +18,8 @@ function onSignIn(googleUser) {
                     //console.log(data.firstName);
     
                     $("#last-name").html(data.lastName);
+
+                    displayWave();
     
             }
         })

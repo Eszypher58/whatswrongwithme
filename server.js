@@ -8,7 +8,7 @@ var fs = require("fs");
 
 //Initialize database
 var db = require("./models");
-db.sequelize.sync({ force: true }).then(function(){
+db.sequelize.sync({ force: false }).then(function(){
 
 
   //Set up Express

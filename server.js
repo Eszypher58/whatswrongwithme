@@ -5,10 +5,15 @@ var bodyParser = require("body-parser");
 var handlebars = require("express-handlebars");
 var path = require("path");
 var fs = require("fs");
+var http = require("http");
+var busboy = require("then-busboy");
+var fileUpload = require("express-fileupload");
 
 //Initialize database
 var db = require("./models");
+
 db.sequelize.sync({ force: true }).then(function(){
+
 
 
   //Set up Express
@@ -23,6 +28,8 @@ db.sequelize.sync({ force: true }).then(function(){
 
   //Send to controller
   app.use(express.static(__dirname + '/views'));
+
+  app.use(fileUpload());
 
   //Set up Controllers
   var mediaRoutes = require("./controllers/media_controller.js");

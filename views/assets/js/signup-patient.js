@@ -55,9 +55,11 @@ function onSignIn(googleUser) {
         if(!patientData) {
           $("#create-patient").on("click", function() {
             var doc = $("#doctors").val();
+            console.log(doc)
             var ins = $("#ins-type").val();
+            console.log(ins)
             var completed = false;
-            if (doc !== null || ins !== null) {
+            if (doc !== null && ins !== null) {
               completed = true;
             }
             if(completed) {

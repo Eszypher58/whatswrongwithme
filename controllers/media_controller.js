@@ -30,10 +30,10 @@ router.get("/media", function(req, res){
 */
 
 //sends the result from db as json so the correct wave file is played back
-router.get("/media/data/:name", function(req, res){
+router.get("/media/data/:id", function(req, res){
     
     console.log("hit /meia/data with get method");
-
+/*
     var nameString = req.params.name;
     var nameArr = nameString.split("_");
     console.log("username is: " + nameArr);
@@ -49,8 +49,8 @@ router.get("/media/data/:name", function(req, res){
                 include: [db.Doctor, db.Patient]
         
     }).then(function(data){
-
-        var patientId = data.Patient.dataValues.id;
+*/
+        var patientId = req.params.id;
         console.log(patientId);
 
 
@@ -70,22 +70,23 @@ router.get("/media/data/:name", function(req, res){
             })
 
 
-    })
+    /*})*/
 
 
 });
-router.post('/media/:name', function (req, res) {
+router.post('/media/:id', function (req, res) {
 
   
     var audioBlob = req.body;
-    var nameString = req.params.name;
-    var nameArr = nameString.split("_");
+    /*var nameString = req.params.name;*/
+    /*var nameArr = nameString.split("_");*/
     var now = Date.now();
     var fileName = now + ".wav";
     //var location = 'media/' + 'username/' + '/wav';
     //var patientId = 0;
+    var patientId = req.params.id;
 
-    console.log(nameArr);
+    /*console.log(nameArr);
     var fName = nameArr[0];
     var lName = nameArr[1];
 
@@ -95,12 +96,22 @@ router.post('/media/:name', function (req, res) {
             firstName: fName,
             lastName: lName
         },
-        include: [db.Doctor, db.Patient]
+        include: [db.Patient]
 
-    }).then(function(result){
-
-        var patientId = result.Patient.dataValues.id;
-        console.log(result.Patient.dataValues.id);
+    }).then(function(result){*/
+/*        console.log("-----------------")
+        console.log("-----------------")
+        console.log("-----------------")
+        console.log("-----------------")
+        console.log(patientId);
+        console.log("-----------------")
+        console.log(patientId);
+        console.log("-----------------")
+        console.log("-----------------")
+        console.log("-----------------")
+        console.log("-----------------")
+*/        /*var patientId = result.Patient.dataValues.id;*/
+        /*console.log(result.Patient.dataValues.id);*/
         location = 'media/' + patientId + '/wav';
 
         makeDir(location).then(path => {
@@ -138,12 +149,12 @@ router.post('/media/:name', function (req, res) {
             
                 });
 
-
+/*
     }).catch(function(err){
 
         throw err;
 
-    })
+    })*/
 
 
     

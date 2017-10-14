@@ -61,7 +61,21 @@ function onSignIn(googleUser) {
                 tr.append(td1);
                 tr.append(td2);
                 $("#audio-area").append(tr);
-              }
+              } /*else if (uploadData[i].type === "wav") {
+                var tr = $("<tr>");
+                var td1 = $("<td>");
+                td1.text(uploadData[i].filename);
+                var td2 = $("<td>");
+                var a = $("<a>");
+                a.text("Play");
+                a.attr("file", uploadData[i].filename)
+                a.addClass("btn-login-ghost btn-small aud");
+                a.attr("style", "margin:0px");
+                td2.html(a);
+                tr.append(td1);
+                tr.append(td2);
+                $("#audio-area").append(tr);
+              }*/
             }
             $(document).ready(function() {
               $(".thumbnail").on("click", function(){

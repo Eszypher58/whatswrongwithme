@@ -54,7 +54,7 @@ function onSignIn(googleUser) {
                         specialties += ", " + response.data.specialties[i].name;
                     }
                     $("#specialties").text(specialties);
-                    $("#website").html("<a href='" + response.data.practices[0].website + "'>" + response.data.practices[0].website + "</a>");
+                    $("#website").html("<a href='" + response.data.practices[0].website + "'>" + "website" + "</a>");
                     var drIns = response.data.insurances;
                     var patientInsProv = data.Patient.insuranceProvider;
                     var patientInsPlan = data.Patient.insuanceType;

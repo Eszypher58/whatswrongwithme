@@ -101,6 +101,8 @@ function displayWave(first, last, patientId){
                     wavesurfer.load(patientId + "/wav" + "/" + fileName);
                     
                     wavesurfer.on('ready', function () {
+
+                        console.log("wav ready...");
                     
                         $("#playSound").on("click", function(e){
                 

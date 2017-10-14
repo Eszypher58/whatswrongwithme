@@ -5,7 +5,7 @@
 	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Uploads</title>
+	<title>My Files</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -43,7 +43,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
       </div>
       <div class="modal-body">
-        <p>Upload your own files or Record Audio</p>
+        <p>Upload your file or record audio</p>
             <form style="display:inline" class="form-horizontal" role="form" method="post" action="/media/api/upload" enctype="multipart/form-data">
                 <div class="form-group">
                     <input id="patient-id" style="display:none" class="form-control" type="text" name="id" accept=""/>
@@ -51,7 +51,7 @@
                 <div class="form-group col-sm-6">
                     <input id="file" class="form-control" type="file" name="upload" accept=""/>
                 </div>
-                <button type="submit" id="upload" class="text-center btn-login"><i class="fa fa-upload" aria-hidden="true"></i>Upload</button>
+                <button type="submit" id="upload" class="text-center btn-login btn-upload"><i class="fa fa-upload" aria-hidden="true"></i>Upload</button>
             </form>
         <button id="record" class="text-center btn-login"><i class="fa fa-microphone" aria-hidden="true"></i>Record</button>
       </div>
@@ -177,9 +177,9 @@
                 <div class="col-md-8">
                     <div class="card">
                         <ul class="nav nav-tabs">
-                          <li id="image-tab" class="active"><a id="image-button" href="#">Images</a></li>
-                          <li id="video-tab"><a id="video-button" href="#">Video</a></li>
-                          <li id="audio-tab"><a id="audio-button" href="#">Audio</a></li>
+                          <li id="image-tab" class="active"><a class="tab"id="image-button" href="#">Images</a></li>
+                          <li id="video-tab"><a class="tab" id="video-button" href="#">Video</a></li>
+                          <li id="audio-tab"><a class="tab" id="audio-button" href="#">Audio</a></li>
                         </ul>
                         <div id="image-div">
                             <div class="header">
@@ -212,15 +212,15 @@
                         </div>
                         <div id="audio-div" style="display:none">
                             <div class="header">
-                                    <h4 class="title">Videos</h4>
+                                    <h4 class="title">Audio</h4>
                             </div>
                             <div class="content">
                                 <div class="row">
                                     <table class="table table-hover">
                                       <thead>
                                         <tr>
-                                          <th>Video</th>
-                                          <th>Play Video</th>
+                                          <th>Audio</th>
+                                          <th>Play Audio</th>
                                         </tr>
                                       </thead>
                                       <tbody id="audio-area">

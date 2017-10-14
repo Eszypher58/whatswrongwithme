@@ -43,7 +43,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
       </div>
       <div class="modal-body">
-        <p>Upload your own files or Record Audio</p>
+        <p>Upload your file or record audio</p>
             <form style="display:inline" class="form-horizontal" role="form" method="post" action="/media/api/upload" enctype="multipart/form-data">
                 <div class="form-group">
                     <input id="patient-id" style="display:none" class="form-control" type="text" name="id" accept=""/>
@@ -51,7 +51,7 @@
                 <div class="form-group col-sm-6">
                     <input id="file" class="form-control" type="file" name="upload" accept=""/>
                 </div>
-                <button type="submit" id="upload" class="text-center btn-login"><i class="fa fa-upload" aria-hidden="true"></i>Upload</button>
+                <button type="submit" id="upload" class="text-center btn-login btn-upload"><i class="fa fa-upload" aria-hidden="true"></i>Upload</button>
             </form>
         <button id="record" class="text-center btn-login"><i class="fa fa-microphone" aria-hidden="true"></i>Record</button>
       </div>
@@ -182,13 +182,13 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-7">
                                             <div class="form-group">
                                                 <label for="email">Email address</label>
                                                 <input id="email" type="email" class="form-control" placeholder="Email" value="">
                                             </div>
                                         </div>
-                                         <div class="col-md-4">
+                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="insurance">Insurance Provider</label>
                                                 <input id="ins" type="email" class="form-control" placeholder="Insurance Provider" value="">

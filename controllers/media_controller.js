@@ -120,7 +120,8 @@ router.post('/media/:name', function (req, res) {
             
                             filename: fileName,
                             location: location,
-                            PatientId: patientId
+                            PatientId: patientId,
+                            type: "wav"
                             //PatientId: req.params.id
             
                         }).then(function(result){

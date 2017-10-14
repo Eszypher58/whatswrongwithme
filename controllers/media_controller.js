@@ -9,6 +9,7 @@ var router = express.Router();
 router.use(bodyParser.json({ limit: '50mb' }));
 router.use(bodyParser.raw({ type: 'audio/wav', limit: '50mb' }));
 
+/*
 //read from db and display the newest file's waveform and assign 5 play button to reflect the 5 newest wav file.
 router.get("/media", function(req, res){
     
@@ -26,66 +27,124 @@ router.get("/media", function(req, res){
     })
 
 });
+*/
 
 //sends the result from db as json so the correct wave file is played back
-router.get("/data.json", function(req, res){
+router.get("/media/data/:name", function(req, res){
     
-    console.log("hit /data.json with get method");
+    console.log("hit /meia/data with get method");
 
-    db.Media.findAll({
+    var nameString = req.params.name;
+    var nameArr = nameString.split("_");
+    console.log("username is: " + nameArr);
+    var fName = nameArr[0];
+    var lName = nameArr[1];
 
-        order: [["id", "DESC"]],
-        limit: 5,
+    db.User.findOne({
+        
+                where: {
+                    firstName: fName,
+                    lastName: lName
+                },
+                include: [db.Doctor, db.Patient]
+        
+    }).then(function(data){
 
-    }).then(function(media){
+        var patientId = data.Patient.dataValues.id;
+        console.log(patientId);
 
-        res.json(media);
+
+        db.Media.findAll({
+        
+                where: {
+                    patientId: patientId,
+                },
+                include: [db.Patient],
+                order: [["id", "DESC"]],
+                limit: 5,
+        
+            }).then(function(result){
+        
+                res.json(result);
+        
+            })
+
 
     })
 
-});
 
-router.post('/media/:id', function (req, res) {
+});
+router.post('/media/:name', function (req, res) {
+
   
     var audioBlob = req.body;
+    var nameString = req.params.name;
+    var nameArr = nameString.split("_");
     var now = Date.now();
     var fileName = now + ".wav";
-    var location = 'media/' + 'username/' + 'wav';
+    //var location = 'media/' + 'username/' + '/wav';
+    //var patientId = 0;
 
-    makeDir(location).then(path => {
+    console.log(nameArr);
+    var fName = nameArr[0];
+    var lName = nameArr[1];
 
-        fs.writeFile(path + "/" + fileName, audioBlob, function(err){
+    db.User.findOne({
+
+        where: {
+            firstName: fName,
+            lastName: lName
+        },
+        include: [db.Doctor, db.Patient]
+
+    }).then(function(result){
+
+        var patientId = result.Patient.dataValues.id;
+        console.log(result.Patient.dataValues.id);
+        location = 'media/' + patientId + '/wav';
+
+        makeDir(location).then(path => {
             
-            if (err) {
+                    fs.writeFile(path + "/" + fileName, audioBlob, function(err){
+                        
+                        if (err) {
+                        
+                            return console.log(err);
+                        
+                        }
             
-                return console.log(err);
+                        console.log("written file");
             
-            }
+                        //using Media_Test
+                        db.Media.create({
+            
+                            filename: fileName,
+                            location: location,
+                            PatientId: patientId
+                            //PatientId: req.params.id
+            
+                        }).then(function(result){
+            
+                            res.json("written file");
+            
+                        }).catch(function(err){
+            
+                            return console.log(err);
+            
+                        })
+                  
+                    })
+            
+                });
 
-            console.log("written file");
 
-            //using Media_Test
-            db.Media.create({
+    }).catch(function(err){
 
-                filename: fileName,
-                location: location,
-                type: "audio",
-                PatientId: req.params.id
+        throw err;
+
+    })
 
 
-            }).then(function(result){
-
-                res.redirect("/media");
-
-            }).catch(function(err){
-
-                return console.log(err);
-
-            })
-      
-        })
-
-    });
     
 });
 

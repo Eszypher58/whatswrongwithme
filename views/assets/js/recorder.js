@@ -33,11 +33,17 @@
                         var fileName = now + ".wav";
     
                         if(!recorder) return alert('No recording found.');
+
+                        var firstName = $("#first-name").text();
+                        var lastName = $("#last-name").text();
+
+                        var name = firstName + "_" + lastName;
+                        console.log(name);
                     
                         $.ajax({
     
                             type: 'POST',
-                            url: '/media',
+                            url: '/media/' + name,
                             data: blob,
                             processData: false,
                             contentType: false
@@ -68,37 +74,6 @@
     
     
         })
-    
-        //when user clicked on stop, stop recording and post data via ajax to server
-        $("#stop").on("click", function(e){
-    
-            //console.log("clicked stop");
-            recorder.stop(function(blob){
-    
-                var now = Date.now();
-                var fileName = now + ".wav";
-    
-                if(!recorder) return alert('No recording found.');
-                
-                $.ajax({
-    
-                    type: 'POST',
-                    url: '/media',
-                    data: blob,
-                    processData: false,
-                    contentType: false
-    
-                }).done(function(data){
-    
-                    console.log("successfully saved wav file");
-                    audioStream.stop();
-                    location.reload();
-    
-                })
-    
-    
-            })
-    
-        })
+
     
     

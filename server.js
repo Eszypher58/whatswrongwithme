@@ -15,7 +15,6 @@ var db = require("./models");
 db.sequelize.sync({ force: false }).then(function(){
 
 
-
   //Set up Express
   var app = express();
   var PORT = process.env.PORT || 8080;

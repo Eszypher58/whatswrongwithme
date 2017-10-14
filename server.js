@@ -12,7 +12,7 @@ var fileUpload = require("express-fileupload");
 //Initialize database
 var db = require("./models");
 
-db.sequelize.sync({ force: true }).then(function(){
+db.sequelize.sync({ force: false }).then(function(){
 
 
 

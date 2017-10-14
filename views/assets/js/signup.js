@@ -23,7 +23,6 @@ function onSignIn(googleUser) {
                     email: googleprofile.getEmail(),
                     docPatient: docPatient
                 }
-                console.log(user);
                 $.post("/user", user)
                 .then(function() {
                     if (docPatient === "1") {

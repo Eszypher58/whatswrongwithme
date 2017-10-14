@@ -5,7 +5,7 @@
 	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>My Profile</title>
+	<title>Patient Files</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -36,6 +36,43 @@
 </head>
 <body>
 
+<!-- Image Modal -->
+<div tabindex="-1" class="modal fade" id="imgModal" role="dialog">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal">×</button>
+        <h3 class="modal-title img-modal-title">Heading</h3>
+    </div>
+    <div class="modal-body img-modal-body">
+        
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+   </div>
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div tabindex="-1" class="modal fade stop-play" id="vidModal" role="dialog">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal">×</button>
+        <h3 class="modal-title vid-modal-title">Heading</h3>
+    </div>
+    <div class="modal-body vid-modal-body">
+        
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+   </div>
+  </div>
+</div>
+
+
 <div class="wrapper">
     <div class="sidebar" data-color="white">
         <div class="sidebar-wrapper">
@@ -51,7 +88,7 @@
                 </li>
                 <li>
                     <a href="profile-doctor">
-                        <div class="sb-item active">
+                        <div class="sb-item">
                             <i class="pe-7s-user"></i>
                             <p>My Profile</p>
                         </div>
@@ -59,7 +96,7 @@
                 </li>
                 <li>
                     <a href="patientfiles">
-                        <div class="sb-item">
+                        <div class="sb-item active">
                             <i class="pe-7s-film"></i>
                             <p>Patient Files</p>
                         </div>
@@ -89,7 +126,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">My Profile</a>
+                    <a class="navbar-brand" href="#">Uploads</a>
                 </div>
 
                 <div class="collapse navbar-collapse">
@@ -99,114 +136,88 @@
             </div>
     </nav>
 
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="card">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <ul class="nav nav-tabs">
+                          <li id="image-tab" class="active"><a id="image-button" href="#">Images</a></li>
+                          <li id="video-tab"><a id="video-button" href="#">Video</a></li>
+                          <li id="audio-tab"><a id="audio-button" href="#">Audio</a></li>
+                        </ul>
+                        <div id="image-div">
                             <div class="header">
-                                <h4 class="title">Edit Profile</h4>
+                                    <h4 class="title">Images</h4>
+                            </div>
+                            <div class="content">                               
+                                <div id="image-area" class="row">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="video-div" style="display:none">
+                            <div class="header">
+                                    <h4 class="title">Videos</h4>
                             </div>
                             <div class="content">
-                                <form>
-                                   
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>First Name</label>
-                                                <input id="first-name" type="text" class="form-control" placeholder="First Name" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Last Name</label>
-                                                <input id="last-name" type="text" class="form-control" placeholder="Last Name" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Date of Birth</label>
-                                                <input id="dob" type="date" class="form-control" placeholder="mm/dd/yyyy" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>City</label>
-                                                <input id="city" type="text" class="form-control" placeholder="City" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>State</label>
-                                                <input id="state" type="text" class="form-control" placeholder="State" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <div class="form-group">
-                                                <label for="email">Email address</label>
-                                                <input id="email" type="email" class="form-control" placeholder="Email" value="">
-                                            </div>
-                                        </div>
-                                        <!-- <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label for="img-url">Upload Photo</label>
-                                                <input type="file" class="form-control-file" id="img-url">
-                                            </div>
-                                        </div> -->
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label>Specialization</label>
-                                                <input id="specialization" type="text" class="form-control" placeholder="Specialization" value="">
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="row">
+                                <div class="row">
+                                    <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th>Video</th>
+                                          <th>Play Video</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody id="video-area">
                                         
-                                        <!-- <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Hospital</label>
-                                                <input type="text" class="form-control" placeholder="Hospital" value="">
-                                             </div>
-                                        </div> -->
-                                        <div class="col-md-12">
-                                            <div id="insurances" class="form-group">
-                                                <label style="display:block">Accepted Insurances</label>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <a id="update" class="btn btn-info btn-fill pull-right btn-update">Update Profile</a>
-                                    <div style="display:none" id="updated"><strong>Profile Updated</strong></div>
-
-                                    
-
-                                    <div class="clearfix"></div>
-                                </form>
+                                      </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="audio-div" style="display:none">
+                            <div class="header">
+                                    <h4 class="title">Videos</h4>
+                            </div>
+                            <div class="content">
+                                <div class="row">
+                                    <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th>Video</th>
+                                          <th>Play Video</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody id="audio-area">
+                                        
+                                      </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-
+                </div>
+                <!-- Form End -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <select id="my-patients" class="form-control">
+                                <option selected disabled>My Patients</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="card card-user">
                             <div class="gradient"></div>
                             <div class="content">
                                 <div class="author">
                                      <a href="#">
-                                    <img id="doc-image" class="avatar border-gray" src="" alt="..."/>
+                                    <img id="patient-image" class="avatar border-gray" src="assets/img/faces/user-avatar.jpg" alt="..."/>
 
-                                      <h4 id="doctor-name" class="title"> 
+                                      <h4 id="patient-name" class="title">Patient Name
                                       </h4>
                                     </a>
                                 </div>
-                                <p id="bio" class="description text-center"> 
+                                <p class="bio description text-center"> 
                                 </p>
                             </div>
                             
@@ -261,7 +272,7 @@
 
     <script src="assets/js/googleauth.js"></script>
 
-    <script src="assets/js/profile-doctor.js"></script>
+    <script src="assets/js/patientfiles.js"></script>
 
 	<script type="text/javascript">
     	$(document).ready(function(){

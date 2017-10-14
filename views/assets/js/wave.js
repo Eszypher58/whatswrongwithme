@@ -62,7 +62,7 @@ function displayWave(){
         //attach event listener to all the playbutton, when clicked, go to server and get the wave file, load onto frontend page and start playing
         $("#selectSound").on("change",function (e){
                 
-            console.log("selected...", this.selectedOptions[0].attributes[1].nodeValue);
+            console.log("selected...", this.selectedOptions[0]);
                 
             //console.log($("#selectSound"));
                     

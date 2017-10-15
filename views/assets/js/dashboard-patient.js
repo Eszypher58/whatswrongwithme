@@ -40,7 +40,9 @@ function onSignIn(googleUser) {
             var doctorId = data.Patient.DoctorId;
             displayWave(data.firstName, data.lastName, patientId);
             wavRecorder(data.firstName, data.lastName, patientId);
+            console.log(doctorId);
             $.get("/doctor/doctor/" + doctorId, function(result){
+                console.log(result);
                 var doctorName = result.User.firstName + " " + result.User.lastName;
                 $("#doctor-name").text(doctorName);    
                 var queryURL = "https://api.betterdoctor.com/2016-03-01/doctors/" + result.betterDoctorId + "?user_key=d9aae6ac51be978b847e7ed2a8ee5b21";
@@ -75,7 +77,7 @@ function onSignIn(googleUser) {
     });
     $(document).on("click", "#chatBtn", insertComment);
 
-    // This function inserts a new todo into our database and then updates the view
+    // Inserts a new comment into the database
     function insertComment(event) {
         event.preventDefault();
         $.get("/profile/googleid/" + googleprofile.getId(), function(data) {

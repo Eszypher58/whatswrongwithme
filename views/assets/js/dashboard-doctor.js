@@ -76,7 +76,7 @@ function onSignIn(googleUser) {
 
             $(document).on("click", "#chatBtn", insertComment);
 
-    // This function inserts a new todo into our database and then updates the view
+    // Inserts a new comment into the database
             function insertComment(event) {
                 event.preventDefault();
                 console.log("insert");

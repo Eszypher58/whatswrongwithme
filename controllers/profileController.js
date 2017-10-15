@@ -98,7 +98,7 @@ profileRouter.get("/doctor/doctor/:doctorid", function(req, res){
 	db.Doctor.findOne(
 		{
 			where: {
-				UserId: req.params.doctorid,
+				id: req.params.doctorid,
 				isActive: true
 			},
 			include: [db.User]

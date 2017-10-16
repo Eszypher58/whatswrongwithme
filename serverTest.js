@@ -11,14 +11,17 @@ var fileUpload = require("express-fileupload");
 
 //Initialize database
 var db = require("./models");
+//Set up Express
+var app = express();
+var PORT = process.env.PORT || 8080;
 
-db.sequelize.sync({ force: true }).then(function(){
+db.sequelize.sync({ force: false }).then(function(){
 
+//For Prod, we would want to move the .catch to the end of the file, so that the app.listen doesn't happen until the database is initialized.  However, in order for the test scripts to work correctly, everything has to happen outside of the sync function.
 
-  //Set up Express
-  var app = express();
-  var PORT = process.env.PORT || 8080;
-
+}).catch(function(err){
+  return console.log(err);
+});
   //Set up method-override, body-parser, and handlebars
   app.use(methodOverride("_method"));
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -47,6 +50,13 @@ db.sequelize.sync({ force: true }).then(function(){
     console.log('Listening on port ' + PORT);
   });
 
-}).catch(function(err){
-  return console.log(err);
+app.post('/set', function(req, res) {
+  var query = req.query;
+  Object.keys(query).forEach(function(key) {
+    cache[key] = query[key];
+  });
+  res.status(200).end();
 });
+
+//Export for the test scripts
+module.exports = app;
